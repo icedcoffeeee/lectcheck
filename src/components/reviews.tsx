@@ -37,8 +37,7 @@ interface LectStatsProps {
   lect_tag: string;
 }
 export async function Reviews({ lect_tag }: LectStatsProps) {
-  const reviews_ = await getReviews(lect_tag);
-  const reviews = Array(10).fill(reviews_[0]);
+  const reviews = await getReviews(lect_tag);
 
   const commentedReviews = reviews
     .filter((r) => r.comments !== "")

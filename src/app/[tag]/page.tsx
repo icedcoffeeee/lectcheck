@@ -13,7 +13,7 @@ export default async function Page({
   params: { tag: string };
 }) {
   const commentedReviews = (await getReviews(tag)).filter(
-    (r) => r.comments !== null && r.comments.length > 0,
+    (r) => r.comments !== null && r.comments.length > 0
   );
   // const reviews: ReviewType[] = [
   //   {
@@ -53,11 +53,12 @@ export default async function Page({
   return (
     <SplitPanes
       leftpane={[
-        <LecturerInfo tag={tag} />,
+        <LecturerInfo tag={tag} key={1} />,
         <CurrentRating
           reviews={trueReviews}
           rubrics={RUBRICS}
           classes={classes}
+          key={2}
         />,
       ]}
     >

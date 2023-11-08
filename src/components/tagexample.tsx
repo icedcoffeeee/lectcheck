@@ -15,7 +15,7 @@ export function TagExample() {
         <ul className="list-disc pl-6">
           <li>
             <p>
-              To look at PROFESSOR DATO' IR. DR. MOHD HAMDI BIN ABD SHUKOR
+              To look at PROFESSOR DATO&apos; IR. DR. MOHD HAMDI BIN ABD SHUKOR
               &apos;s profile, google his UMExpert page:
             </p>
             <Code>https://umexpert.um.edu.my/hamdi</Code>
@@ -25,7 +25,7 @@ export function TagExample() {
           </li>
           <li>
             <p>
-              If you know their email, the tag is its prepend. PROFESSOR DATO'
+              If you know their email, the tag is its prepend. PROFESSOR DATO&apos;
               IR. DR. MOHD HAMDI BIN ABD SHUKOR &apos;s email is:
             </p>
             <Code>hamdi@um.edu.my</Code>

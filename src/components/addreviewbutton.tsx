@@ -25,7 +25,7 @@ export function AddReviewButton({
   tag: string;
   session: Session | null;
 }) {
-  const states = RUBRICS.map((_) => useState(0));
+  const states = Array(RUBRICS.length).fill(useState(0));
   const [open, setOpen] = useState(false);
   return (
     <span>
@@ -100,7 +100,7 @@ function AddReviewForm({
       />
       {RUBRICS.map((R, n) => {
         return (
-          <div className="flex justify-between">
+          <div className="flex justify-between" key={n}>
             <p>{R[0]}</p>
             <Rating
               name={R[0]}
@@ -120,7 +120,11 @@ function AddReviewForm({
       <Textarea name="comments" placeholder="(Optional)" />
       <Button name="submit">Submit</Button>
       {!status.success ? (
-        status.message.map((m) => <p className="text-blue-700">{m}</p>)
+        status.message.map((m) => (
+          <p className="text-blue-700" key={m}>
+            {m}
+          </p>
+        ))
       ) : (
         <></>
       )}

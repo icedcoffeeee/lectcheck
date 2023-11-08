@@ -19,7 +19,7 @@ export function CurrentRating({
       <h2>Current Ratings</h2>
       {rubrics.map((R, n) => {
         const avgReview = average(reviews.map((r) => r[n]));
-        return <SingleRating name={R[0]} desc={R[1]} val={avgReview} />;
+        return <SingleRating name={R[0]} desc={R[1]} val={avgReview} key={n}/>;
       })}
       <p>Classes</p>
       <div className="flex flex-wrap gap-2">

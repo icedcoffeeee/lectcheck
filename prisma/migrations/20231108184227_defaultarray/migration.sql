@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Review" ALTER COLUMN "dislikeIds" SET DEFAULT ARRAY[]::TEXT[],
+ALTER COLUMN "likeIds" SET DEFAULT ARRAY[]::TEXT[];

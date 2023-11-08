@@ -7,13 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Review {
   id          Int      @id @default(autoincrement())
+  authorId    String
+  reviews     Int[]
+  comments    String?
   lecturerTag String
   createdAt   DateTime @default(now())
-  assignments Int
-  teaching    Int
   kelas       String
-  comments    String?
+  likeIds     String[] @default([])
+  dislikeIds  String[] @default([])
 }

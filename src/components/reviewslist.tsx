@@ -20,7 +20,7 @@ import { ErrorSnackbar } from "./addreviewbutton";
 export const RUBRICS = [
   ["Teaching", "How well do they present the knowledge?"],
   ["Assessments", "How easy/stressful are the assignments?"],
-  ["Guidance", "How well do they connect answer curiosity?"],
+  ["Guidance", "How well do they answer curiosity?"],
   ["Reach", "How easy are they to contact?"],
 ];
 
@@ -75,7 +75,7 @@ function ReviewCard({
         ) : (
           <p />
         )}
-        <span className="flex gap-3 items-center">
+        <span className="flex gap-3 items-baseline">
           {review.likeIds.length - review.dislikeIds.length}
           <IconButton
             Icon={ThumbsUpIcon}
@@ -122,21 +122,28 @@ function IconButton({
   return pressed ? (
     <Loader2 className="animate-spin" size={15} />
   ) : (
-    <Icon
-      size={15}
-      className={"cursor-pointer"}
-      onClick={
-        session
-          ? async () => {
-              setPressed(true);
-              await action();
-              setPressed(false);
-            }
-          : () => setOpen(true)
-      }
-      {...props}
-    >
-      <ErrorSnackbar state={[open, setOpen]} intent="like or dislike this review"/>
-    </Icon>
+    <>
+      <Icon
+        size={15}
+        className={"cursor-pointer"}
+        onClick={
+          session
+            ? async () => {
+                setPressed(true);
+                await action();
+                setPressed(false);
+              }
+            : () => {
+                console.log(open);
+                setOpen(true);
+              }
+        }
+        {...props}
+      />
+      <ErrorSnackbar
+        state={[open, setOpen]}
+        intent="to like or dislike this review"
+      />
+    </>
   );
 }

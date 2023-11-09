@@ -12,40 +12,11 @@ export default async function Page({
 }: {
   params: { tag: string };
 }) {
-  const commentedReviews = (await getReviews(tag)).filter(
+  const allReviews = await getReviews(tag)
+  const commentedReviews = allReviews.filter(
     (r) => r.comments !== null && r.comments.length > 0
   );
-  // const reviews: ReviewType[] = [
-  //   {
-  //     id: 1,
-  //     lecturerTag: "wat",
-  //     reviews: [1, 2, 3],
-  //     authorId: "hazim.saharuddin",
-  //     comments: "not cool",
-  //     createdAt: new Date(),
-  //     kelas: "SIF2020",
-  //   },
-  //   {
-  //     id: 2,
-  //     lecturerTag: "wat",
-  //     reviews: [4, 1, 2],
-  //     authorId: "hazim.saharuddin",
-  //     comments: "bla ".repeat(20),
-  //     createdAt: new Date(),
-  //     kelas: "SIF2020",
-  //   },
-  //   {
-  //     id: 3,
-  //     lecturerTag: "wat",
-  //     reviews: [2, 3, 2],
-  //     authorId: "matkilau",
-  //     comments: "bla ".repeat(4),
-  //     createdAt: new Date(),
-  //     kelas: "SIF2030",
-  //   },
-  // ];
-  [1, 2, 3, 4].map((a, n) => []);
-  const trueReviews = commentedReviews.map((r) => r.reviews);
+  const trueReviews = allReviews.map((r) => r.reviews);
   const classes = commentedReviews
     .map((r) => r.kelas)
     .filter((v, n, a) => a.indexOf(v) === n);

@@ -15,7 +15,7 @@ export async function addReview(_prevState: any, formData: FormData) {
         RegExp("[A-Z]{3}[0-9]{4}"),
         "Course code must be in full caps. Check your digits.",
       ),
-    comments: z.string().optional(),
+    comments: z.string().max(250).optional(),
   });
 
   const [tag, authorId, kelas, comments] = [

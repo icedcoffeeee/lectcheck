@@ -1,7 +1,7 @@
 "use client";
 
 import { ReviewType } from "@/utils/db";
-import { Divider } from "@mui/material";
+import { Alert, Divider, Snackbar } from "@mui/material";
 import { ClassCode, SingleRating } from "./currentrating";
 import { Session } from "next-auth";
 import {
@@ -15,6 +15,7 @@ import {
 import { deleteReview } from "@/utils/adddeletereview";
 import { useState } from "react";
 import { dislikeReview, likeReview } from "@/utils/likedislikereviews";
+import { ErrorSnackbar } from "./addreviewbutton";
 
 export const RUBRICS = [
   ["Teaching", "How well do they present the knowledge?"],
@@ -69,6 +70,7 @@ function ReviewCard({
           <IconButton
             Icon={Trash}
             action={async () => await deleteReview(review)}
+            session={session}
           />
         ) : (
           <p />
@@ -79,11 +81,13 @@ function ReviewCard({
             Icon={ThumbsUpIcon}
             action={async () => await likeReview(review, userId)}
             color={review.likeIds.includes(userId) ? "blue" : "black"}
+            session={session}
           />
           <IconButton
             Icon={ThumbsDownIcon}
             action={async () => await dislikeReview(review, userId)}
             color={review.dislikeIds.includes(userId) ? "blue" : "black"}
+            session={session}
           />
         </span>
       </div>
@@ -110,21 +114,29 @@ function ReviewCard({
 function IconButton({
   action,
   Icon,
+  session,
   ...props
-}: { action: any; Icon: LucideIcon } & LucideProps) {
+}: { action: any; session: Session | null; Icon: LucideIcon } & LucideProps) {
   const [pressed, setPressed] = useState(false);
+  const [open, setOpen] = useState(false);
   return pressed ? (
     <Loader2 className="animate-spin" size={15} />
   ) : (
     <Icon
       size={15}
       className={"cursor-pointer"}
-      onClick={async () => {
-        setPressed(true);
-        await action();
-        setPressed(false);
-      }}
+      onClick={
+        session
+          ? async () => {
+              setPressed(true);
+              await action();
+              setPressed(false);
+            }
+          : () => setOpen(true)
+      }
       {...props}
-    />
+    >
+      <ErrorSnackbar state={[open, setOpen]} intent="like or dislike this review"/>
+    </Icon>
   );
 }

@@ -58,15 +58,7 @@ export function AddReviewButton({
           </DialogContent>
         </Dialog>
       ) : (
-        <Snackbar
-          open={open}
-          onClose={() => setOpen(false)}
-          autoHideDuration={5000}
-        >
-          <Alert severity="error" variant="filled">
-            You must log in to leave a review.
-          </Alert>
-        </Snackbar>
+        <ErrorSnackbar state={[open, setOpen]} intent="leave a review"/>
       )}
     </span>
   );
@@ -129,5 +121,25 @@ function AddReviewForm({
         <></>
       )}
     </form>
+  );
+}
+
+export function ErrorSnackbar({
+  state,
+  intent,
+}: {
+  state: [boolean, Dispatch<SetStateAction<boolean>>];
+  intent: string;
+}) {
+  return (
+    <Snackbar
+      open={state[0]}
+      onClose={() => state[1](false)}
+      autoHideDuration={5000}
+    >
+      <Alert severity="error" variant="filled">
+        You must log in to {intent}.
+      </Alert>
+    </Snackbar>
   );
 }

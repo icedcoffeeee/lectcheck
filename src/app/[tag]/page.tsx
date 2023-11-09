@@ -4,7 +4,7 @@ import { RUBRICS, ReviewsList } from "@/components/reviewslist";
 import { SplitPanes } from "@/components/splitpanes";
 import { getReviews } from "@/utils/getreviews";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/options";
+import { options } from "../api/auth/[...nextauth]/options";
 import { AddReviewButton } from "@/components/addreviewbutton";
 
 export default async function Page({
@@ -12,9 +12,9 @@ export default async function Page({
 }: {
   params: { tag: string };
 }) {
-  const allReviews = await getReviews(tag)
+  const allReviews = await getReviews(tag);
   const commentedReviews = allReviews.filter(
-    (r) => r.comments !== null && r.comments.length > 0
+    (r) => r.comments !== null && r.comments.length > 0,
   );
   const trueReviews = allReviews.map((r) => r.reviews);
   const classes = commentedReviews

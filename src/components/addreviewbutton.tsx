@@ -58,7 +58,7 @@ export function AddReviewButton({
           </DialogContent>
         </Dialog>
       ) : (
-        <ErrorSnackbar state={[open, setOpen]} intent="leave a review"/>
+        <ErrorSnackbar state={[open, setOpen]} intent="leave a review" />
       )}
     </span>
   );

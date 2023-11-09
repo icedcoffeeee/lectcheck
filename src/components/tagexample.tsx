@@ -9,7 +9,8 @@ export function TagExample() {
   return (
     <div>
       <h2>
-        <Switch checked={open} onChange={() => setOpen(!open)} size="small" /> Examples
+        <Switch checked={open} onChange={() => setOpen(!open)} size="small" />{" "}
+        Examples
       </h2>
       <Collapse in={open} unmountOnExit>
         <ul className="list-disc pl-6">
@@ -25,8 +26,8 @@ export function TagExample() {
           </li>
           <li>
             <p>
-              If you know their email, the tag is its prepend. PROFESSOR DATO&apos;
-              IR. DR. MOHD HAMDI BIN ABD SHUKOR &apos;s email is:
+              If you know their email, the tag is its prepend. PROFESSOR
+              DATO&apos; IR. DR. MOHD HAMDI BIN ABD SHUKOR &apos;s email is:
             </p>
             <Code>hamdi@um.edu.my</Code>
             <p>

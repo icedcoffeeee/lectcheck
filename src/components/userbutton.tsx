@@ -52,7 +52,7 @@ export function UserButton({ session }: { session: Session | null }) {
           <Button
             className="bg-blue-950 text-white border-0 hover:bg-blue-800"
             onClick={() =>
-              router.push(`/auth/${session ? "signout" : "signin"}/google`)
+              router.push(`/api/auth/${session ? "signout" : "signin"}/google`)
             }
           >
             {session ? "Log Out" : "Log In"}

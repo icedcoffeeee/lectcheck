@@ -50,7 +50,12 @@ export function SingleRating({
       <p className="flex gap-3 items-center">
         {name}
         {desc ? (
-          <Tooltip title={<p className="text-lg">{desc}</p>} placement="bottom" enterTouchDelay={0} leaveTouchDelay={2000}>
+          <Tooltip
+            title={<p className="text-lg">{desc}</p>}
+            placement="bottom"
+            enterTouchDelay={0}
+            leaveTouchDelay={2000}
+          >
             <Info size={15} />
           </Tooltip>
         ) : (

@@ -4,7 +4,7 @@ import "./globals.css";
 import { NavBar } from "@/components/navbar";
 import { Dot } from "lucide-react";
 import { getServerSession } from "next-auth";
-import { options } from "./auth/[...nextauth]/options";
+import { options } from "./api/auth/[...nextauth]/options";
 
 const font = Font({ weight: "400", subsets: ["latin"] });
 

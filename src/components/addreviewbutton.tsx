@@ -25,7 +25,7 @@ export function AddReviewButton({
   tag: string;
   session: Session | null;
 }) {
-  const states = Array(RUBRICS.length).fill(useState(0));
+  let states = useState(Array(RUBRICS.length).fill(0));
   const [open, setOpen] = useState(false);
   return (
     <span>
@@ -40,7 +40,7 @@ export function AddReviewButton({
           open={open}
           onClose={() => {
             setOpen(false);
-            states.forEach((s) => s[1](0));
+            states[1](Array(RUBRICS.length).fill(0));
           }}
           className="rounded-md"
         >
@@ -72,7 +72,7 @@ function AddReviewForm({
 }: {
   tag: string;
   session: Session;
-  states: [number, Dispatch<SetStateAction<number>>][];
+  states: [number[], Dispatch<SetStateAction<number[]>>];
   setDialogState: Dispatch<SetStateAction<boolean>>;
 }) {
   const [status, formAction] = useFormState(addReview, {
@@ -96,10 +96,17 @@ function AddReviewForm({
             <p>{R[0]}</p>
             <Rating
               name={R[0]}
-              value={states[n][0]}
+              value={states[0][n]}
               onChange={(_e, v) => {
                 if (v !== null) {
-                  states[n][1](v);
+                  states[1](
+                    states[0].map((r, m) => {
+                      if (m === n) {
+                        r = v;
+                      }
+                      return r;
+                    })
+                  );
                 }
               }}
             />

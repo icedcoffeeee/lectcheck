@@ -4,8 +4,8 @@ import { RUBRICS, ReviewsList } from "@/components/reviewslist";
 import { SplitPanes } from "@/components/splitpanes";
 import { getReviews } from "@/utils/getreviews";
 import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
 import { AddReviewButton } from "@/components/addreviewbutton";
+import { options } from "../api/auth/[...nextauth]/options";
 
 export default async function Page({
   params: { tag },

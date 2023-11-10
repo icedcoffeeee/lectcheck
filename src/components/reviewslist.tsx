@@ -61,9 +61,15 @@ function ReviewCard({
 }) {
   const [pressed, setPressed] = useState(false);
   const userId = session?.user?.email?.split("@")[0] ?? "";
+  const hasComment = !!review.comments?.length;
   return (
     <div className="bg-white flex flex-col text-black rounded-md md:max-w-xs p-3 shadow-md">
-      <p>{review.comments}</p>
+      <p
+        data-nocomment={!hasComment}
+        className="data-[nocomment=true]:text-gray-500"
+      >
+        {hasComment ? review.comments : "(No comment)"}
+      </p>
       <span className="grow" />
       <div className="flex items-center justify-between mt-2">
         {userId === review.authorId ? (
@@ -94,7 +100,7 @@ function ReviewCard({
       <Divider sx={{ my: 1.5, borderColor: "#222" }} />
       <div className="flex justify-between items-center">
         <ClassCode code={review.kelas} />
-        <p>{review.createdAt.toDateString()}</p>
+        <p>{getRelativeTime(review.createdAt)}</p>
       </div>
       <div className="flex flex-col gap-1 mt-3">
         {RUBRICS.map((r, n) => (
@@ -146,4 +152,26 @@ function IconButton({
       />
     </>
   );
+}
+
+const units: { [id: string]: number } = {
+  year: 24 * 60 * 60 * 1000 * 365,
+  month: (24 * 60 * 60 * 1000 * 365) / 12,
+  day: 24 * 60 * 60 * 1000,
+  hour: 60 * 60 * 1000,
+  minute: 60 * 1000,
+  second: 1000,
+};
+
+function getRelativeTime(date: Date) {
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+  const elapsed = Number(date) - Number(new Date());
+
+  // "Math.abs" accounts for both "past" & "future" scenarios
+  for (var u in units)
+    if (Math.abs(elapsed) > units[u] || u == "second")
+      return rtf.format(
+        Math.round(elapsed / units[u]),
+        u as Intl.RelativeTimeFormatUnit
+      );
 }

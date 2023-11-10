@@ -1,6 +1,7 @@
 import { SplitPanes } from "@/components/splitpanes";
 import { TagExample } from "@/components/tagexample";
 import { HL, UL } from "@/components/ui/typography";
+
 export default function Home() {
   return (
     <SplitPanes>

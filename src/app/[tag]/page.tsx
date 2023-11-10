@@ -12,15 +12,17 @@ export default async function Page({
 }: {
   params: { tag: string };
 }) {
+  const session = await getServerSession(options);
   const allReviews = await getReviews(tag);
   const commentedReviews = allReviews.filter(
-    (r) => r.comments !== null && r.comments.length > 0,
+    (r) =>
+      (r.comments !== null && r.comments.length > 0) ||
+      r.authorId === session?.user?.email?.split("@")[0]
   );
   const trueReviews = allReviews.map((r) => r.reviews);
   const classes = commentedReviews
     .map((r) => r.kelas)
     .filter((v, n, a) => a.indexOf(v) === n);
-  const session = await getServerSession(options);
   return (
     <SplitPanes
       leftpane={[

@@ -49,10 +49,20 @@ export function UserButton({ session }: { session: Session | null }) {
           orientation="vertical"
           aria-label="vertical outlined button group"
         >
+          {session ? (
+            <Button
+              className="bg-blue-950 text-white border-0 hover:bg-blue-800"
+              onClick={() => router.push(`/myreviews/`)}
+            >
+              My reviews
+            </Button>
+          ) : (
+            <></>
+          )}
           <Button
             className="bg-blue-950 text-white border-0 hover:bg-blue-800"
             onClick={() =>
-              router.push(`/api/auth/${session ? "signout" : "signin"}/google`)
+              router.push(`/api/auth/${session ? "signout" : "signin"}`)
             }
           >
             {session ? "Log Out" : "Log In"}

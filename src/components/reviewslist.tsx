@@ -25,6 +25,8 @@ export const RUBRICS = [
   ["Reach", "How easy are they to contact?"],
 ];
 
+export const REVIEWGRIDCLASS = "grid grid-cols-1 gap-2 my-3 md:grid-cols-2";
+
 export async function ReviewsList({
   reviews,
   session,
@@ -33,7 +35,7 @@ export async function ReviewsList({
   session: Session | null;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-2 my-3 md:grid-cols-2">
+    <div className={REVIEWGRIDCLASS}>
       {reviews
         .sort((a, b) => {
           const offset = Number(b.createdAt) - Number(a.createdAt);
@@ -53,18 +55,21 @@ export async function ReviewsList({
   );
 }
 
-function ReviewCard({
+export function ReviewCard({
   review,
   session,
+  title,
 }: {
   review: ReviewType;
   session: Session | null;
+  title?: string;
 }) {
   const [pressed, setPressed] = useState(false);
   const userId = session?.user?.email?.split("@")[0] ?? "";
   const hasComment = !!review.comments?.length;
   return (
     <div className="bg-white flex flex-col text-black rounded-md md:max-w-xs p-3 shadow-md">
+      {title ? <p className="font-bold mb-2">{title}</p> : <></>}
       <p
         data-nocomment={!hasComment}
         className="data-[nocomment=true]:text-gray-500"

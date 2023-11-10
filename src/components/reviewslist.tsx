@@ -36,7 +36,7 @@ export async function ReviewsList({
       {reviews
         .sort((a, b) => {
           const offset = Number(b.createdAt) - Number(a.createdAt);
-          if (Math.abs(offset) < 100)
+          if (Math.abs(offset) < units["month"])
             return (
               a.likeIds.length -
               a.dislikeIds.length -

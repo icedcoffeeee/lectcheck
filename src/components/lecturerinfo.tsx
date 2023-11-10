@@ -1,4 +1,4 @@
-import { getLecturerInfo, LecturerInfoType } from "@/utils/getlecturerinfo";
+import { getLecturerInfo, LecturerInfoType } from "@/lib/getlecturerinfo";
 import { User2 } from "lucide-react";
 import Image from "next/image";
 

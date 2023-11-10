@@ -22,9 +22,13 @@ export default async function RootLayout({
   const session = await getServerSession(options);
   return (
     <html lang="en">
-      <body className={font.className + " flex flex-col w-full min-h-screen overflow-y-none"}>
+      <body
+        className={
+          font.className + " flex flex-col w-full min-h-screen overflow-y-none"
+        }
+      >
         <div className="fixed top-0 left-0 min-h-screen w-full bg-gradient-to-br from-blue-700 to-black -z-20" />
-        <Analytics/>
+        <Analytics />
         <NavBar session={session} />
         <div className="grow m-3 md:flex md:justify-center">{children}</div>
         <div className="w-full flex py-5 justify-center items-center text-xs">

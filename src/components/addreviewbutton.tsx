@@ -15,7 +15,7 @@ import { Session } from "next-auth";
 import { Input, Textarea } from "./ui/input";
 import { Button } from "./ui/button";
 import { useFormState } from "react-dom";
-import { addReview } from "@/utils/adddeletereview";
+import { addReview } from "@/lib/adddeletereview";
 import { RUBRICS } from "./reviewslist";
 
 export function AddReviewButton({
@@ -105,7 +105,7 @@ function AddReviewForm({
                         r = v;
                       }
                       return r;
-                    })
+                    }),
                   );
                 }
               }}

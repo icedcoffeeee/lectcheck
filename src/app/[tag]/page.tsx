@@ -2,7 +2,7 @@ import { CurrentRating } from "@/components/currentrating";
 import { LecturerInfo } from "@/components/lecturerinfo";
 import { RUBRICS, ReviewsList } from "@/components/reviewslist";
 import { SplitPanes } from "@/components/splitpanes";
-import { getReviews } from "@/utils/getreviews";
+import { getReviews } from "@/lib/getreviews";
 import { getServerSession } from "next-auth";
 import { AddReviewButton } from "@/components/addreviewbutton";
 import { options } from "../api/auth/[...nextauth]/options";
@@ -17,7 +17,7 @@ export default async function Page({
   const commentedReviews = allReviews.filter(
     (r) =>
       (r.comments !== null && r.comments.length > 0) ||
-      r.authorId === session?.user?.email?.split("@")[0]
+      r.authorId === session?.user?.email?.split("@")[0],
   );
   const trueReviews = allReviews.map((r) => r.reviews);
   const classes = commentedReviews

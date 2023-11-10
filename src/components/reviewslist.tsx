@@ -1,9 +1,10 @@
 "use client";
 
-import { ReviewType } from "@/utils/db";
+import { deleteReview } from "@/lib/adddeletereview";
+import { ReviewType } from "@/lib/db";
+import { dislikeReview, likeReview } from "@/lib/likedislikereviews";
+import { getRelativeTime, units } from "@/lib/relativetime";
 import { Divider } from "@mui/material";
-import { ClassCode, SingleRating } from "./currentrating";
-import { Session } from "next-auth";
 import {
   Loader2,
   LucideIcon,
@@ -12,10 +13,10 @@ import {
   ThumbsUpIcon,
   Trash,
 } from "lucide-react";
-import { deleteReview } from "@/utils/adddeletereview";
+import { Session } from "next-auth";
 import { useState } from "react";
-import { dislikeReview, likeReview } from "@/utils/likedislikereviews";
 import { ErrorSnackbar } from "./addreviewbutton";
+import { ClassCode, SingleRating } from "./currentrating";
 
 export const RUBRICS = [
   ["Teaching", "How well do they present the knowledge?"],
@@ -152,26 +153,4 @@ function IconButton({
       />
     </>
   );
-}
-
-const units: { [id: string]: number } = {
-  year: 24 * 60 * 60 * 1000 * 365,
-  month: (24 * 60 * 60 * 1000 * 365) / 12,
-  day: 24 * 60 * 60 * 1000,
-  hour: 60 * 60 * 1000,
-  minute: 60 * 1000,
-  second: 1000,
-};
-
-function getRelativeTime(date: Date) {
-  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
-  const elapsed = Number(date) - Number(new Date());
-
-  // "Math.abs" accounts for both "past" & "future" scenarios
-  for (var u in units)
-    if (Math.abs(elapsed) > units[u] || u == "second")
-      return rtf.format(
-        Math.round(elapsed / units[u]),
-        u as Intl.RelativeTimeFormatUnit
-      );
 }

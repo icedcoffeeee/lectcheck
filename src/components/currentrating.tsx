@@ -1,6 +1,6 @@
 "use client";
 
-import { average } from "@/utils/misc";
+import { average } from "@/lib/utils";
 import { Star } from "@mui/icons-material";
 import { Rating, Tooltip } from "@mui/material";
 import { Info } from "lucide-react";

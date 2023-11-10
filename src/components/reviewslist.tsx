@@ -1,7 +1,7 @@
 "use client";
 
 import { ReviewType } from "@/utils/db";
-import { Alert, Divider, Snackbar } from "@mui/material";
+import { Divider } from "@mui/material";
 import { ClassCode, SingleRating } from "./currentrating";
 import { Session } from "next-auth";
 import {

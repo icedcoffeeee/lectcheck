@@ -1,20 +1,27 @@
 import { getLeaderboardList } from "@/lib/getreviews";
 import { HTMLAttributes } from "react";
 import Image from "next/image";
-import { getLeaderboardInfo, getLecturerInfo } from "@/lib/getlecturerinfo";
+import { LecturerInfoType, getLeaderboardInfo } from "@/lib/getlecturerinfo";
 import { Star } from "lucide-react";
 
 export async function Leaderboard({
   ...props
 }: HTMLAttributes<HTMLDivElement>) {
   const leaderboardList = await getLeaderboardList();
-  const lectInfos = await getLeaderboardInfo(leaderboardList.map((l) => l[0]));
+  const leaderboardInfos = await getLeaderboardInfo(
+    leaderboardList.map((l) => l[0]),
+  );
   return (
     <div {...props}>
       <h2 className="mt-2">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
         {leaderboardList.map(([tag, avg], n) => (
-          <LeaderboardCard tag={tag} info={lectInfos[n]} avg={avg} key={n} />
+          <LeaderboardCard
+            tag={tag}
+            avg={avg}
+            info={leaderboardInfos[n]}
+            key={n}
+          />
         ))}
       </div>
     </div>
@@ -23,12 +30,12 @@ export async function Leaderboard({
 
 async function LeaderboardCard({
   tag,
-  info,
   avg,
+  info,
 }: {
   tag: string;
-  info: string[];
   avg: number;
+  info: string[];
 }) {
   const [imgSrc, name] = info;
   return (

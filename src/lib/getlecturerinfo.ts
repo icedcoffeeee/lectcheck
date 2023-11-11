@@ -1,27 +1,31 @@
-import axios from "axios";
 import { JSDOM } from "jsdom";
 
-async function getLecturerInfoUMExpert(tag: string) {
-  return axios.get("https://umexpert.um.edu.my/" + tag).then(({ data }) => {
-    const parent = new JSDOM(data).window.document.querySelector(
-      ".profile-upper"
-    );
-    if (parent === null) return null;
-    const children = parent.children;
-    if (children === null) return null;
+async function getItemsFromResponse(res: Promise<Response>[]) {
+  return Promise.all(
+    res.map((resp) =>
+      resp.then(async (r) => {
+        const parent = new JSDOM(await r.text()).window.document.querySelector(
+          ".profile-upper",
+        );
+        if (parent === null) return null;
+        const children = parent.children;
 
-    let items: string[] = [];
-    items.push(children.item(0)?.getAttribute("src") ?? "");
-    for (var i = 1; i < children.length; i++) {
-      items.push(children.item(i)?.textContent ?? "");
-    }
+        let items: string[] = [];
+        items.push(children.item(0)?.getAttribute("src") ?? "");
+        for (var i = 1; i < parent.children.length; i++) {
+          items.push(children.item(i)?.textContent ?? "");
+        }
 
-    return items;
-  });
+        return items;
+      }),
+    ),
+  );
 }
 
 export async function getLecturerInfo(tag: string) {
-  const items = await getLecturerInfoUMExpert(tag);
+  const items = (
+    await getItemsFromResponse([fetch("https://umexpert.um.edu.my/" + tag)])
+  )[0];
   if (items === null) return null;
 
   const [imgSrc, name, department, faculty, email] = items;
@@ -40,14 +44,10 @@ export type LecturerInfoType = NonNullable<
 >;
 
 export async function getLeaderboardInfo(tags: string[]) {
-  let promises: Promise<string[]>[] = [];
-  for (var tag in tags) {
-    promises.push(
-      getLecturerInfoUMExpert(tag).then((info) => {
-        if (info === null) return [""];
-        return info;
-      })
-    );
-  }
-  return Promise.all(promises);
+  const items = (
+    await getItemsFromResponse(
+      tags.map((tag) => fetch("https://umexpert.um.edu.my/" + tag)),
+    )
+  ).map((i) => (!!i ? i : Array<string>(5).fill("")));
+  return items;
 }

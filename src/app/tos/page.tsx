@@ -2,19 +2,22 @@ export default function Page() {
   return (
     <div className="max-w-3xl">
       <h2>Website Terms of Use</h2>
-      <p>Version 1.0</p><br/>
+      <p>Version 1.0</p>
+      <br />
 
       <p>
         The LectCheck website located at lectcheck.vercel.app is a copyrighted
         work belonging to LectCheck. Certain features of the Site may be subject
         to additional guidelines, terms, or rules, which will be posted on the
         Site in connection with such features.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         All such additional terms, guidelines, and rules are incorporated by
         reference into these Terms.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         These Terms of Use described the legally binding terms and conditions
@@ -23,20 +26,23 @@ export default function Page() {
         authority and capacity to enter into these Terms. YOU SHOULD BE AT LEAST
         18 YEARS OF AGE TO ACCESS THE SITE. IF YOU DISAGREE WITH ALL OF THE
         PROVISION OF THESE TERMS, DO NOT LOG INTO AND/OR USE THE SITE.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         These terms require the use of arbitration Section 10.2 on an individual
         basis to resolve disputes and also limit the remedies available to you
         in the event of a dispute.
-      </p><br/>
+      </p>
+      <br />
 
       <h2>Access to the Site</h2>
       <p>
         <strong>Subject to these Terms.</strong> Company grants you a
         non-transferable, non-exclusive, revocable, limited license to access
         the Site solely for your own personal, noncommercial use.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Certain Restrictions.</strong> The rights approved to you in
@@ -52,36 +58,40 @@ export default function Page() {
         addition to functionality of the Site shall be subject to these Terms.
         All copyright and other proprietary notices on the Site must be retained
         on all copies thereof.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         Company reserves the right to change, suspend, or cease the Site with or
         without notice to you. You approved that Company will not be held liable
         to you or any third-party for any change, interruption, or termination
         of the Site or any part.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>No Support or Maintenance.</strong> You agree that Company will
         have no obligation to provide you with any support in connection with
         the Site.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         Excluding any User Content that you may provide, you are aware that all
         the intellectual property rights, including copyrights, patents,
         trademarks, and trade secrets, in the Site and its content are owned by
-        Company or Company&apos;s suppliers. Note that these Terms and access to the
-        Site do not give you any rights, title or interest in or to any
+        Company or Company&apos;s suppliers. Note that these Terms and access to
+        the Site do not give you any rights, title or interest in or to any
         intellectual property rights, except for the limited access rights
         expressed in Section 2.1. Company and its suppliers reserve all rights
         not granted in these Terms.
-      </p><br/>
+      </p>
+      <br />
 
       <h2>User Content</h2>
       <p>
-        <strong>User Content.</strong> &quot;User Content&quot; means any and all
-        information and content that a user submits to the Site. You are
+        <strong>User Content.</strong> &quot;User Content&quot; means any and
+        all information and content that a user submits to the Site. You are
         exclusively responsible for your User Content. You bear all risks
         associated with use of your User Content. You hereby certify that your
         User Content does not violate our Acceptable Use Policy. You may not
@@ -92,7 +102,8 @@ export default function Page() {
         your User Content may be deleted at any time without prior notice to
         you. You are solely responsible for making your own backup copies of
         your User Content if you desire.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         You hereby grant to Company an irreversible, nonexclusive, royalty-free
@@ -103,21 +114,24 @@ export default function Page() {
         including your User Content in the Site. You hereby irreversibly waive
         any claims and assertions of moral rights or attribution with respect to
         your User Content.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Acceptable Use Policy.</strong> The following terms constitute
-        our &quot;Acceptable Use Policy&quot;: You agree not to use the Site to collect,
-        upload, transmit, display, or distribute any User Content (i) that
-        violates any third-party right or any intellectual property or
+        our &quot;Acceptable Use Policy&quot;: You agree not to use the Site to
+        collect, upload, transmit, display, or distribute any User Content (i)
+        that violates any third-party right or any intellectual property or
         proprietary right; (ii) that is unlawful, harassing, abusive, tortious,
-        threatening, harmful, invasive of another&apos;s privacy, vulgar, defamatory,
-        false, intentionally misleading, trade libelous, pornographic, obscene,
-        patently offensive, promotes racism, bigotry, hatred, or physical harm
-        of any kind against any group or individual; (iii) that is harmful to
-        minors in any way; or (iv) that is in violation of any law, regulation,
-        or obligations or restrictions imposed by any third party.
-      </p><br/>
+        threatening, harmful, invasive of another&apos;s privacy, vulgar,
+        defamatory, false, intentionally misleading, trade libelous,
+        pornographic, obscene, patently offensive, promotes racism, bigotry,
+        hatred, or physical harm of any kind against any group or individual;
+        (iii) that is harmful to minors in any way; or (iv) that is in violation
+        of any law, regulation, or obligations or restrictions imposed by any
+        third party.
+      </p>
+      <br />
 
       <p>
         In addition, you agree not to: (i) upload, transmit, or distribute to or
@@ -131,11 +145,12 @@ export default function Page() {
         networks connected to the Site, or violate the regulations, policies or
         procedures of such networks; (v) attempt to gain unauthorized access to
         the Site, whether through password mining or any other means; (vi)
-        harass or interfere with any other user&apos;s use and enjoyment of the Site;
-        or (vi) use software or automated agents or scripts to produce multiple
-        accounts on the Site, or to generate automated searches, requests, or
-        queries to the Site.
-      </p><br/>
+        harass or interfere with any other user&apos;s use and enjoyment of the
+        Site; or (vi) use software or automated agents or scripts to produce
+        multiple accounts on the Site, or to generate automated searches,
+        requests, or queries to the Site.
+      </p>
+      <br />
 
       <p>
         We reserve the right to review any User Content, and to investigate
@@ -145,8 +160,8 @@ export default function Page() {
         may include removing or modifying your User Content, terminating your
         Account in accordance with Section 8, and/or reporting you to law
         enforcement authorities.
-      </p><br/>
-
+      </p>
+      <br />
 
       <p>
         If you provide Company with any feedback or suggestions regarding the
@@ -155,21 +170,23 @@ export default function Page() {
         and related information in any manner it believes appropriate. Company
         will treat any Feedback you provide to Company as non-confidential and
         non-proprietary.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         You agree to indemnify and hold Company and its officers, employees, and
-        agents harmless, including costs and attorneys&apos; fees, from any claim or
-        demand made by any third-party due to or arising out of (a) your use of
-        the Site, (b) your violation of these Terms, (c) your violation of
-        applicable laws or regulations or (d) your User Content. Company
-        reserves the right to assume the exclusive defense and control of any
-        matter for which you are required to indemnify us, and you agree to
-        cooperate with our defense of these claims. You agree not to settle any
-        matter without the prior written consent of Company. Company will use
-        reasonable efforts to notify you of any such claim, action or proceeding
-        upon becoming aware of it.
-      </p><br/>
+        agents harmless, including costs and attorneys&apos; fees, from any
+        claim or demand made by any third-party due to or arising out of (a)
+        your use of the Site, (b) your violation of these Terms, (c) your
+        violation of applicable laws or regulations or (d) your User Content.
+        Company reserves the right to assume the exclusive defense and control
+        of any matter for which you are required to indemnify us, and you agree
+        to cooperate with our defense of these claims. You agree not to settle
+        any matter without the prior written consent of Company. Company will
+        use reasonable efforts to notify you of any such claim, action or
+        proceeding upon becoming aware of it.
+      </p>
+      <br />
 
       <h2>Third-Party Links & Ads; Other Users</h2>
       <p>
@@ -183,9 +200,10 @@ export default function Page() {
         Ads. You use all Third-Party Links & Ads at your own risk, and should
         apply a suitable level of caution and discretion in doing so. When you
         click on any of the Third-Party Links & Ads, the applicable third
-        party&apos;s terms and policies apply, including the third party&apos;s privacy
-        and data gathering practices.
-      </p><br/>
+        party&apos;s terms and policies apply, including the third party&apos;s
+        privacy and data gathering practices.
+      </p>
+      <br />
 
       <p>
         <strong>Other Users.</strong> Each Site user is solely responsible for
@@ -195,7 +213,8 @@ export default function Page() {
         Company will not be responsible for any loss or damage incurred as the
         result of any such interactions. If there is a dispute between you and
         any Site user, we are under no obligation to become involved.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         You hereby release and forever discharge the Company and our officers,
@@ -205,35 +224,38 @@ export default function Page() {
         action of every kind and nature, that has arisen or arises directly or
         indirectly out of, or that relates directly or indirectly to, the Site.
         If you are a California resident, you hereby waive California civil code
-        section 1542 in connection with the foregoing, which states: &quot;a general
-        release does not extend to claims which the creditor does not know or
-        suspect to exist in his or her favor at the time of executing the
-        release, which if known by him or her must have materially affected his
-        or her settlement with the debtor.&quot;
-      </p><br/>
+        section 1542 in connection with the foregoing, which states: &quot;a
+        general release does not extend to claims which the creditor does not
+        know or suspect to exist in his or her favor at the time of executing
+        the release, which if known by him or her must have materially affected
+        his or her settlement with the debtor.&quot;
+      </p>
+      <br />
 
       <h2>Disclaimers</h2>
       <p>
-        The site is provided on an &quot;as-is&quot; and &quot;as available&quot; basis, and company
-        and our suppliers expressly disclaim any and all warranties and
-        conditions of any kind, whether express, implied, or statutory,
-        including all warranties or conditions of merchantability, fitness for a
-        particular purpose, title, quiet enjoyment, accuracy, or
-        non-infringement. We and our suppliers make not guarantee that the site
-        will meet your requirements, will be available on an uninterrupted,
-        timely, secure, or error-free basis, or will be accurate, reliable, free
-        of viruses or other harmful code, complete, legal, or safe. If
-        applicable law requires any warranties with respect to the site, all
-        such warranties are limited in duration to ninety (90) days from the
-        date of first use.
-      </p><br/>
+        The site is provided on an &quot;as-is&quot; and &quot;as
+        available&quot; basis, and company and our suppliers expressly disclaim
+        any and all warranties and conditions of any kind, whether express,
+        implied, or statutory, including all warranties or conditions of
+        merchantability, fitness for a particular purpose, title, quiet
+        enjoyment, accuracy, or non-infringement. We and our suppliers make not
+        guarantee that the site will meet your requirements, will be available
+        on an uninterrupted, timely, secure, or error-free basis, or will be
+        accurate, reliable, free of viruses or other harmful code, complete,
+        legal, or safe. If applicable law requires any warranties with respect
+        to the site, all such warranties are limited in duration to ninety (90)
+        days from the date of first use.
+      </p>
+      <br />
 
       <p>
         Some jurisdictions do not allow the exclusion of implied warranties, so
         the above exclusion may not apply to you. Some jurisdictions do not
         allow limitations on how long an implied warranty lasts, so the above
         limitation may not apply to you.
-      </p><br/>
+      </p>
+      <br />
 
       <h2>Limitation on Liability</h2>
       <p>
@@ -246,7 +268,8 @@ export default function Page() {
         such damages. Access to and use of the site is at your own discretion
         and risk, and you will be solely responsible for any damage to your
         device or computer system, or loss of data resulting therefrom.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         To the maximum extent permitted by law, notwithstanding anything to the
@@ -256,13 +279,15 @@ export default function Page() {
         claim will not enlarge this limit. You agree that our suppliers will
         have no liability of any kind arising from or relating to this
         agreement.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         Some jurisdictions do not allow the limitation or exclusion of liability
         for incidental or consequential damages, so the above limitation or
         exclusion may not apply to you.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Term and Termination.</strong> Subject to this Section, these
@@ -278,7 +303,8 @@ export default function Page() {
         your rights under these Terms are terminated, the following provisions
         of these Terms will remain in effect: Sections 2 through 2.5, Section 3
         and Sections 4 through 10.
-      </p><br/>
+      </p>
+      <br />
 
       <h2>Copyright Policy.</h2>
       <p>
@@ -292,7 +318,8 @@ export default function Page() {
         work, and wish to have the allegedly infringing material removed, the
         following information in the form of a written notification (pursuant to
         17 U.S.C. § 512(c)) must be provided to our designated Copyright Agent:
-      </p><br/>
+      </p>
+      <br />
 
       <ul>
         <li>your physical or electronic signature;</li>
@@ -321,10 +348,11 @@ export default function Page() {
       <p>
         Please note that, pursuant to 17 U.S.C. § 512(f), any misrepresentation
         of material fact in a written notification automatically subjects the
-        complaining party to liability for any damages, costs and attorney&apos;s
-        fees incurred by us in connection with the written notification and
-        allegation of copyright infringement.
-      </p><br/>
+        complaining party to liability for any damages, costs and
+        attorney&apos;s fees incurred by us in connection with the written
+        notification and allegation of copyright infringement.
+      </p>
+      <br />
 
       <h2>General</h2>
       <p>
@@ -346,7 +374,8 @@ export default function Page() {
         read this Arbitration Agreement carefully. It is part of your contract
         with Company and affects your rights. It contains procedures for
         MANDATORY BINDING ARBITRATION AND A CLASS ACTION WAIVER.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Applicability of Arbitration Agreement.</strong> All claims and
@@ -360,7 +389,8 @@ export default function Page() {
         interest, successors, and assigns, as well as all authorized or
         unauthorized users or beneficiaries of services or goods provided under
         the Terms.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Notice Requirement and Informal Dispute Resolution.</strong>
@@ -375,7 +405,8 @@ export default function Page() {
         offer made by any party may not be disclosed to the arbitrator until
         after the arbitrator has determined the amount of the award to which
         either party is entitled.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Arbitration Rules.</strong> Arbitration shall be initiated
@@ -405,7 +436,8 @@ export default function Page() {
         greater of the award or $2,500.00. Each party shall bear its own costs
         and disbursements arising out of the arbitration and shall pay an equal
         share of the fees and costs of the ADR Provider.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Additional Rules for Non-Appearance Based Arbitration.</strong>
@@ -415,14 +447,16 @@ export default function Page() {
         the arbitration. The arbitration shall not involve any personal
         appearance by the parties or witnesses unless otherwise agreed by the
         parties.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Time Limits.</strong> If you or the Company pursues arbitration,
         the arbitration action must be initiated and/or demanded within the
         statute of limitations and within any deadline imposed under the AAA
         Rules for the pertinent claim.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Authority of Arbitrator.</strong> If arbitration is initiated,
@@ -438,7 +472,8 @@ export default function Page() {
         the same authority to award relief on an individual basis that a judge
         in a court of law would have. The award of the arbitrator is final and
         binding upon you and the Company.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Waiver of Jury Trial.</strong> THE PARTIES HEREBY WAIVE THEIR
@@ -452,7 +487,8 @@ export default function Page() {
         in a suit to vacate or enforce an arbitration award or otherwise, YOU
         AND THE COMPANY WAIVE ALL RIGHTS TO A JURY TRIAL, instead electing that
         the dispute be resolved by a judge.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Waiver of Class or Consolidated Actions.</strong> All claims and
@@ -461,7 +497,8 @@ export default function Page() {
         and claims of more than one customer or user cannot be arbitrated or
         litigated jointly or consolidated with those of any other customer or
         user.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Confidentiality.</strong> All aspects of the arbitration
@@ -470,7 +507,8 @@ export default function Page() {
         not prevent a party from submitting to a court of law any information
         necessary to enforce this Agreement, to enforce an arbitration award, or
         to seek injunctive or equitable relief.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Severability.</strong> If any part or parts of this Arbitration
@@ -478,24 +516,28 @@ export default function Page() {
         court of competent jurisdiction, then such specific part or parts shall
         be of no force and effect and shall be severed and the remainder of the
         Agreement shall continue in full force and effect.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Right to Waive.</strong> Any or all of the rights and
         limitations set forth in this Arbitration Agreement may be waived by the
         party against whom the claim is asserted. Such waiver shall not waive or
         affect any other portion of this Arbitration Agreement.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Survival of Agreement.</strong> This Arbitration Agreement will
         survive the termination of your relationship with Company.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Small Claims Court.</strong> Nonetheless the foregoing, either
         you or the Company may bring an individual action in small claims court.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Emergency Equitable Relief.</strong> Anyhow the foregoing,
@@ -503,22 +545,25 @@ export default function Page() {
         federal court in order to maintain the status quo pending arbitration. A
         request for interim measures shall not be deemed a waiver of any other
         rights or obligations under this Arbitration Agreement.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Claims Not Subject to Arbitration.</strong> Notwithstanding the
         foregoing, claims of defamation, violation of the Computer Fraud and
-        Abuse Act, and infringement or misappropriation of the other party&apos;s
-        patent, copyright, trademark or trade secrets shall not be subject to
-        this Arbitration Agreement.
-      </p><br/>
+        Abuse Act, and infringement or misappropriation of the other
+        party&apos;s patent, copyright, trademark or trade secrets shall not be
+        subject to this Arbitration Agreement.
+      </p>
+      <br />
 
       <p>
         In any circumstances where the foregoing Arbitration Agreement permits
         the parties to litigate in court, the parties hereby agree to submit to
         the personal jurisdiction of the courts located within my County,
         California, for such purposes.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         The Site may be subject to U.S. export control laws and may be subject
@@ -526,7 +571,8 @@ export default function Page() {
         export, re-export, or transfer, directly or indirectly, any U.S.
         technical data acquired from Company, or any products utilizing such
         data, in violation of the United States export laws or regulations.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         Company is located at the address in Section 10.8. If you are a
@@ -534,7 +580,8 @@ export default function Page() {
         Assistance Unit of the Division of Consumer Product of the California
         Department of Consumer Affairs by contacting them in writing at 400 R
         Street, Sacramento, CA 95814, or by telephone at (800) 952-5210.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Electronic Communications.</strong> The communications between
@@ -546,7 +593,8 @@ export default function Page() {
         communications that Company provides to you electronically satisfy any
         legal obligation that such communications would satisfy if it were be in
         a hard copy writing.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Entire Terms.</strong> These Terms constitute the entire
@@ -554,24 +602,26 @@ export default function Page() {
         to exercise or enforce any right or provision of these Terms shall not
         operate as a waiver of such right or provision. The section titles in
         these Terms are for convenience only and have no legal or contractual
-        effect. The word &quot;including&quot; means &quot;including without limitation&quot;. If
-        any provision of these Terms is held to be invalid or unenforceable, the
-        other provisions of these Terms will be unimpaired and the invalid or
-        unenforceable provision will be deemed modified so that it is valid and
-        enforceable to the maximum extent permitted by law. Your relationship to
-        Company is that of an independent contractor, and neither party is an
-        agent or partner of the other. These Terms, and your rights and
-        obligations herein, may not be assigned, subcontracted, delegated, or
-        otherwise transferred by you without Company&apos;s prior written consent,
-        and any attempted assignment, subcontract, delegation, or transfer in
-        violation of the foregoing will be null and void. Company may freely
-        assign these Terms. The terms and conditions set forth in these Terms
-        shall be binding upon assignees.
-      </p><br/>
+        effect. The word &quot;including&quot; means &quot;including without
+        limitation&quot;. If any provision of these Terms is held to be invalid
+        or unenforceable, the other provisions of these Terms will be unimpaired
+        and the invalid or unenforceable provision will be deemed modified so
+        that it is valid and enforceable to the maximum extent permitted by law.
+        Your relationship to Company is that of an independent contractor, and
+        neither party is an agent or partner of the other. These Terms, and your
+        rights and obligations herein, may not be assigned, subcontracted,
+        delegated, or otherwise transferred by you without Company&apos;s prior
+        written consent, and any attempted assignment, subcontract, delegation,
+        or transfer in violation of the foregoing will be null and void. Company
+        may freely assign these Terms. The terms and conditions set forth in
+        these Terms shall be binding upon assignees.
+      </p>
+      <br />
 
       <p>
         <strong>Your Privacy.</strong> Please read our Privacy Policy.
-      </p><br/>
+      </p>
+      <br />
 
       <p>
         <strong>Copyright/Trademark Information.</strong> Copyright ©. All
@@ -579,13 +629,15 @@ export default function Page() {
         the Site are our property or the property of other third-parties. You
         are not permitted to use these Marks without our prior written consent
         or the consent of such third party which may own the Marks.
-      </p><br/>
+      </p>
+      <br />
 
       <h2>Contact Information</h2>
-      <p>Address: 50603 Kuala Lumpur</p><br/>
+      <p>Address: 50603 Kuala Lumpur</p>
+      <br />
 
-      <p>Email: hazim.saharuddin@gmail.com</p><br/>
-
+      <p>Email: hazim.saharuddin@gmail.com</p>
+      <br />
     </div>
   );
 }

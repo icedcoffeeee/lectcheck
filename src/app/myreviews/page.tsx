@@ -10,7 +10,7 @@ export default async function Page() {
   const session = await getServerSession(options);
   if (!session) redirect("/api/auth/signin");
   const myReviews = await getMyReviews(
-    session.user?.email?.split("@")[0] ?? ""
+    session.user?.email?.split("@")[0] ?? "",
   );
   return (
     <SplitPanes>

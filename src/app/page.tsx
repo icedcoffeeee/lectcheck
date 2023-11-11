@@ -5,7 +5,11 @@ import { HL, UL } from "@/components/ui/typography";
 
 export default function Home() {
   return (
-    <SplitPanes leftpane={[<Leaderboard className="hidden md:contents" />]}>
+    <SplitPanes
+      leftpane={[
+        <Leaderboard className="hidden md:contents" key={"leaderboard"} />,
+      ]}
+    >
       <h1>LectCheck</h1>
       <p>Welcome to LectCheck, where you can rate your lecturers/professors!</p>
 

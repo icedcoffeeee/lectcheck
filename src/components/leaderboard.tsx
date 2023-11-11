@@ -1,38 +1,47 @@
 import { getLeaderboardList } from "@/lib/getreviews";
 import { HTMLAttributes } from "react";
 import Image from "next/image";
-import { getLecturerInfo } from "@/lib/getlecturerinfo";
+import { getLeaderboardInfo, getLecturerInfo } from "@/lib/getlecturerinfo";
 import { Star } from "lucide-react";
 
 export async function Leaderboard({
   ...props
 }: HTMLAttributes<HTMLDivElement>) {
   const leaderboardList = await getLeaderboardList();
+  const lectInfos = await getLeaderboardInfo(leaderboardList.map((l) => l[0]));
   return (
     <div {...props}>
       <h2 className="mt-2">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
         {leaderboardList.map(([tag, avg], n) => (
-          <LeaderboardCard tag={tag} avg={avg} key={n} />
+          <LeaderboardCard tag={tag} info={lectInfos[n]} avg={avg} key={n} />
         ))}
       </div>
     </div>
   );
 }
 
-async function LeaderboardCard({ tag, avg }: { tag: string; avg: number }) {
-  const lectInfo = await getLecturerInfo(tag);
+async function LeaderboardCard({
+  tag,
+  info,
+  avg,
+}: {
+  tag: string;
+  info: string[];
+  avg: number;
+}) {
+  const [imgSrc, name] = info;
   return (
     <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
       <Image
-        src={lectInfo?.imgSrc || ""}
+        src={imgSrc}
         width={50}
         height={50}
-        alt={lectInfo?.name || ""}
+        alt={name}
         className="object-cover h-full border-2 border-gray-900 aspect-square rounded-full"
       />
       <div className="w-full grid grid-cols-2 items-baseline">
-        <p className="col-span-2">{lectInfo?.name || ""}</p>
+        <p className="col-span-2">{name}</p>
         <p>({tag})</p>
         <p className="place-self-end flex gap-2 items-center">
           {avg}

@@ -1,18 +1,30 @@
 import axios from "axios";
 import { JSDOM } from "jsdom";
 
+async function getLecturerInfoUMExpert(tag: string) {
+  return axios.get("https://umexpert.um.edu.my/" + tag).then(({ data }) => {
+    const parent = new JSDOM(data).window.document.querySelector(
+      ".profile-upper"
+    );
+    if (parent === null) return null;
+    const children = parent.children;
+    if (children === null) return null;
+
+    let items: string[] = [];
+    items.push(children.item(0)?.getAttribute("src") ?? "");
+    for (var i = 1; i < children.length; i++) {
+      items.push(children.item(i)?.textContent ?? "");
+    }
+
+    return items;
+  });
+}
+
 export async function getLecturerInfo(tag: string) {
-  const { data } = await axios.get<string>("https://umexpert.um.edu.my/" + tag);
-  const dom = new JSDOM(data);
-  const parent = dom.window.document.querySelector(".profile-upper");
+  const items = await getLecturerInfoUMExpert(tag);
+  if (items === null) return null;
 
-  if (parent === null) return null;
-
-  const imgSrc = parent?.children.item(0)?.getAttribute("src") || "";
-  const name = parent?.children.item(1)?.textContent || "";
-  const department = parent?.children.item(2)?.textContent || "";
-  const faculty = parent?.children.item(3)?.textContent || "";
-  const email = parent?.children.item(4)?.textContent || "";
+  const [imgSrc, name, department, faculty, email] = items;
 
   return {
     name: name,
@@ -26,3 +38,16 @@ export async function getLecturerInfo(tag: string) {
 export type LecturerInfoType = NonNullable<
   Awaited<ReturnType<typeof getLecturerInfo>>
 >;
+
+export async function getLeaderboardInfo(tags: string[]) {
+  let promises: Promise<string[]>[] = [];
+  for (var tag in tags) {
+    promises.push(
+      getLecturerInfoUMExpert(tag).then((info) => {
+        if (info === null) return [""];
+        return info;
+      })
+    );
+  }
+  return Promise.all(promises);
+}

@@ -1,10 +1,11 @@
-import { SplitPanes } from "@/components/splitpanes";
-import { getMyReviews } from "@/lib/getreviews";
-import { Session, getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
-import { redirect } from "next/navigation";
-import { ReviewType } from "@/lib/db";
 import { REVIEWGRIDCLASS, ReviewCard } from "@/components/reviewslist";
+import { SplitPanes } from "@/components/splitpanes";
+import { ReviewType } from "@/lib/db";
+import { getMyReviews } from "@/lib/getreviews";
+import { sortByDateOrLikes } from "@/lib/sortbydateorlikes";
+import { Session, getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { options } from "../api/auth/[...nextauth]/options";
 
 export default async function Page() {
   const session = await getServerSession(options);
@@ -16,7 +17,7 @@ export default async function Page() {
     <SplitPanes>
       <h2 className="mb-2">My Reviews</h2>
       <div className={REVIEWGRIDCLASS}>
-        {myReviews.map((r, n) => (
+        {myReviews.sort(sortByDateOrLikes).map((r, n) => (
           <MyReviewsCard review={r} session={session} key={n} />
         ))}
       </div>

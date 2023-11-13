@@ -5,7 +5,7 @@ async function getItemsFromResponse(res: Promise<Response>[]) {
     res.map((resp) =>
       resp.then(async (r) => {
         const parent = new JSDOM(await r.text()).window.document.querySelector(
-          ".profile-upper"
+          ".profile-upper",
         );
         if (parent === null) return null;
         const children = parent.children;
@@ -17,8 +17,8 @@ async function getItemsFromResponse(res: Promise<Response>[]) {
         }
 
         return items;
-      })
-    )
+      }),
+    ),
   );
 }
 
@@ -45,6 +45,6 @@ export type LecturerInfoType = NonNullable<
 
 export async function getLeaderboardInfo(tags: string[]) {
   return getItemsFromResponse(
-    tags.map((tag) => fetch("https://umexpert.um.edu.my/" + tag))
+    tags.map((tag) => fetch("https://umexpert.um.edu.my/" + tag)),
   ).then((j) => j.map((i) => (!!i ? i : Array<string>(5).fill(""))));
 }

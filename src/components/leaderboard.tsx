@@ -21,7 +21,7 @@ export async function Leaderboard({
   });
   return (
     <div {...props}>
-      <h2 className="mt-2 flex gap-2 items-center">
+      <h2 className="my-2 flex gap-2 items-center">
         Lecturer Leaderboard{" "}
         {infos.length == 0 ? <Loader2 className="animate-spin" /> : <></>}
       </h2>

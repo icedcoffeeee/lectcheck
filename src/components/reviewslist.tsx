@@ -3,7 +3,8 @@
 import { deleteReview } from "@/lib/adddeletereview";
 import { ReviewType } from "@/lib/db";
 import { dislikeReview, likeReview } from "@/lib/likedislikereviews";
-import { getRelativeTime, units } from "@/lib/relativetime";
+import { getRelativeTime } from "@/lib/relativetime";
+import { sortByDateOrLikes } from "@/lib/sortbydateorlikes";
 import { Divider } from "@mui/material";
 import {
   Loader2,
@@ -37,16 +38,7 @@ export async function ReviewsList({
   return (
     <div className={REVIEWGRIDCLASS}>
       {reviews
-        .sort((a, b) => {
-          const offset = Number(b.createdAt) - Number(a.createdAt);
-          if (Math.abs(offset) < units["month"])
-            return (
-              a.likeIds.length -
-              a.dislikeIds.length -
-              (b.likeIds.length - b.dislikeIds.length)
-            );
-          return offset;
-        })
+        .sort(sortByDateOrLikes)
         .filter((a) => a.likeIds.length - a.dislikeIds.length > -5)
         .map((r, n) => (
           <ReviewCard review={r} session={session} key={n} />
@@ -64,7 +56,6 @@ export function ReviewCard({
   session: Session | null;
   title?: string;
 }) {
-  const [pressed, setPressed] = useState(false);
   const userId = session?.user?.email?.split("@")[0] ?? "";
   const hasComment = !!review.comments?.length;
   return (

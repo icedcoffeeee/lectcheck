@@ -18,7 +18,10 @@ export async function getLeaderboardList() {
     .filter((v, n, a) => a.indexOf(v) === n);
   let list: [string, number][] = tags.map((t) => [t, 0]);
   allReviews.map((v, n) => {
-    list[tags.indexOf(v.lecturerTag)][1] += average(v.reviews);
+    list[tags.indexOf(v.lecturerTag)][1] = average([
+      list[tags.indexOf(v.lecturerTag)][1],
+      ...v.reviews,
+    ]);
   });
   return list.sort((a, b) => b[1] - a[1]).slice(0, 6);
 }

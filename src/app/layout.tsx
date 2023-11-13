@@ -6,12 +6,16 @@ import { Dot } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
 import { Analytics } from "@vercel/analytics/react";
+import Head from "next/head";
 
 const font = Font({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "LectCheck",
   description: "Rate your UM Lecturers",
+  verification: {
+    google: "OXBRmBGsGZeVvYYLiO7lyR-omgqNZkhnS72Ml6qsO3M",
+  },
 };
 
 export default async function RootLayout({

@@ -13,7 +13,7 @@ export async function addReview(_prevState: any, formData: FormData) {
       .string()
       .regex(
         RegExp("[A-Z]{3}[0-9]{4}"),
-        "Course code must be in full caps. Check your digits.",
+        "Course code must be in full caps. Check your digits."
       ),
     comments: z.string().max(250).optional(),
   });
@@ -36,6 +36,16 @@ export async function addReview(_prevState: any, formData: FormData) {
       kelas: kelas,
       comments: comments,
     });
+    const prevRevs = await prisma.review.findMany({
+      where: { authorId: data.authorId },
+      select: { kelas: true },
+    });
+    if (prevRevs.map((r) => r.kelas).includes(data.kelas)) {
+      throw Error(
+        "You have already reviewed this class. " +
+          "Delete your previous review to submit a new one."
+      );
+    }
     await prisma.review.create({ data: data });
     revalidatePath("/" + tag);
     return { message: ["Added!"], success: true };
@@ -45,6 +55,9 @@ export async function addReview(_prevState: any, formData: FormData) {
         message: ["Error:", ...e.errors.map((r) => r.message)],
         success: false,
       };
+    }
+    if (e instanceof Error) {
+      return { message: ["Error", e.message], success: false };
     }
     console.log(e);
     return { message: ["Error"], success: false };

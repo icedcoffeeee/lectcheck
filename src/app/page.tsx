@@ -2,12 +2,21 @@ import { Leaderboard } from "@/components/leaderboard";
 import { SplitPanes } from "@/components/splitpanes";
 import { TagExample } from "@/components/tagexample";
 import { HL, UL } from "@/components/ui/typography";
+import { getLeaderboardInfo } from "@/lib/getlecturerinfo";
+import { getLeaderboardList } from "@/lib/getreviews";
 
-export default function Home() {
+export default async function Home() {
+  const list = await getLeaderboardList();
+  const promised_infos = getLeaderboardInfo(list.map((l) => l[0]));
   return (
     <SplitPanes
       leftpane={[
-        <Leaderboard className="hidden md:contents" key={"leaderboard"} />,
+        <Leaderboard
+          list={list}
+          promised_infos={promised_infos}
+          className="hidden md:contents"
+          key={"leaderboard"}
+        />,
       ]}
     >
       <h1>LectCheck</h1>
@@ -40,7 +49,11 @@ export default function Home() {
           others&apos; reviews have helped you.
         </li>
       </ul>
-      <Leaderboard className="contents md:hidden" />
+      <Leaderboard
+        list={list}
+        promised_infos={promised_infos}
+        className="contents md:hidden"
+      />
     </SplitPanes>
   );
 }

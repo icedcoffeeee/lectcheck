@@ -1,25 +1,36 @@
-import { getLeaderboardList } from "@/lib/getreviews";
-import { HTMLAttributes } from "react";
+"use client";
+
+import { Loader2, Star } from "lucide-react";
 import Image from "next/image";
-import { LecturerInfoType, getLeaderboardInfo } from "@/lib/getlecturerinfo";
-import { Star } from "lucide-react";
+import { HTMLAttributes, useEffect, useState } from "react";
 
 export async function Leaderboard({
+  list,
+  promised_infos,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
-  const leaderboardList = await getLeaderboardList();
-  const leaderboardInfos = await getLeaderboardInfo(
-    leaderboardList.map((l) => l[0]),
-  );
+}: {
+  list: [string, number][];
+  promised_infos: Promise<string[][]>;
+} & HTMLAttributes<HTMLDivElement>) {
+  const [infos, setInfos] = useState<string[][]>([]);
+  useEffect(() => {
+    async function getData() {
+      setInfos(await promised_infos);
+    }
+    getData();
+  });
   return (
     <div {...props}>
-      <h2 className="mt-2">Lecturer Leaderboard</h2>
+      <h2 className="mt-2 flex gap-2 items-center">
+        Lecturer Leaderboard{" "}
+        {infos.length == 0 ? <Loader2 className="animate-spin" /> : <></>}
+      </h2>
       <div className={"grid grid-cols-1 gap-2"}>
-        {leaderboardList.map(([tag, avg], n) => (
+        {infos.map((info, n) => (
           <LeaderboardCard
-            tag={tag}
-            avg={avg}
-            info={leaderboardInfos[n]}
+            tag={list[n][0]}
+            avg={list[n][1]}
+            info={info}
             key={n}
           />
         ))}
@@ -28,7 +39,7 @@ export async function Leaderboard({
   );
 }
 
-async function LeaderboardCard({
+function LeaderboardCard({
   tag,
   avg,
   info,

@@ -13,7 +13,7 @@ export default async function Home() {
       leftpane={[
         <Leaderboard
           list={list}
-          promised_infos={promised_infos}
+          infos={promised_infos}
           className="hidden md:contents"
           key={"leaderboard"}
         />,
@@ -51,7 +51,7 @@ export default async function Home() {
       </ul>
       <Leaderboard
         list={list}
-        promised_infos={promised_infos}
+        infos={promised_infos}
         className="contents md:hidden"
       />
     </SplitPanes>

@@ -1,54 +1,40 @@
-"use client";
-
-import { Loader2, Star } from "lucide-react";
+import { Skeleton } from "@mui/material";
+import { Star } from "lucide-react";
 import Image from "next/image";
-import { HTMLAttributes, useEffect, useState } from "react";
+import { HTMLAttributes, Suspense } from "react";
 
 export async function Leaderboard({
   list,
-  promised_infos,
+  infos,
   ...props
 }: {
   list: [string, number][];
-  promised_infos: Promise<string[][]>;
+  infos: Promise<Promise<string[]>[]>;
 } & HTMLAttributes<HTMLDivElement>) {
-  const [infos, setInfos] = useState<string[][]>([]);
-  useEffect(() => {
-    async function getData() {
-      setInfos(await promised_infos);
-    }
-    getData();
-  });
   return (
     <div {...props}>
-      <h2 className="my-2 flex gap-2 items-center">
-        Lecturer Leaderboard{" "}
-        {infos.length == 0 ? <Loader2 className="animate-spin" /> : <></>}
-      </h2>
+      <h2 className="my-2 flex gap-2 items-center">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
-        {infos.map((info, n) => (
-          <LeaderboardCard
-            tag={list[n][0]}
-            avg={list[n][1]}
-            info={info}
-            key={n}
-          />
+        {(await infos).map((info, n) => (
+          <Suspense key={n} fallback={<SkeletonLeaderboardCard />}>
+            <LeaderboardCard tag={list[n][0]} avg={list[n][1]} info={info} />
+          </Suspense>
         ))}
       </div>
     </div>
   );
 }
 
-function LeaderboardCard({
+async function LeaderboardCard({
   tag,
   avg,
   info,
 }: {
   tag: string;
   avg: number;
-  info: string[];
+  info: Promise<string[]>;
 }) {
-  const [imgSrc, name] = info;
+  const [imgSrc, name] = await info;
   return (
     <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
       <Image
@@ -65,6 +51,24 @@ function LeaderboardCard({
           {avg}
           <Star stroke="orange" size={"0.9rem"} />
         </p>
+      </div>
+    </div>
+  );
+}
+
+function SkeletonLeaderboardCard() {
+  return (
+    <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
+      <Skeleton
+        variant="circular"
+        width={50}
+        height={50}
+        className="h-full aspect-square"
+      />
+      <div className="w-full grid grid-cols-2 items-baseline">
+        <Skeleton className="col-span-2" />
+        <Skeleton className="w-10" />
+        <Skeleton className="w-5 justify-self-end" />
       </div>
     </div>
   );

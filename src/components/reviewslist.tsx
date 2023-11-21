@@ -58,6 +58,7 @@ export function ReviewCard({
 }) {
   const userId = session?.user?.email?.split("@")[0] ?? "";
   const hasComment = !!review.comments?.length;
+  const [liked, setLiked] = useState(0);
   return (
     <div className="bg-white flex flex-col text-black rounded-md md:max-w-xs p-3 shadow-md">
       {title ? <p className="font-bold mb-2">{title}</p> : <></>}
@@ -79,17 +80,29 @@ export function ReviewCard({
           <p />
         )}
         <span className="flex gap-3 items-baseline">
-          {review.likeIds.length - review.dislikeIds.length}
+          {review.likeIds.length - review.dislikeIds.length + liked}
           <IconButton
             Icon={ThumbsUpIcon}
-            action={async () => await likeReview(review, userId)}
-            color={review.likeIds.includes(userId) ? "blue" : "black"}
+            action={async () => {
+              setLiked(liked === 1 ? 0 : 1);
+              await likeReview(review, userId);
+            }}
+            color={
+              liked === 1 || review.likeIds.includes(userId) ? "blue" : "black"
+            }
             session={session}
           />
           <IconButton
             Icon={ThumbsDownIcon}
-            action={async () => await dislikeReview(review, userId)}
-            color={review.dislikeIds.includes(userId) ? "blue" : "black"}
+            action={async () => {
+              setLiked(liked === -1 ? 0 : 1);
+              await dislikeReview(review, userId);
+            }}
+            color={
+              liked === -1 || review.dislikeIds.includes(userId)
+                ? "blue"
+                : "black"
+            }
             session={session}
           />
         </span>
@@ -120,11 +133,8 @@ function IconButton({
   session,
   ...props
 }: { action: any; session: Session | null; Icon: LucideIcon } & LucideProps) {
-  const [pressed, setPressed] = useState(false);
   const [open, setOpen] = useState(false);
-  return pressed ? (
-    <Loader2 className="animate-spin" size={15} />
-  ) : (
+  return (
     <>
       <Icon
         size={15}
@@ -132,12 +142,9 @@ function IconButton({
         onClick={
           session
             ? async () => {
-                setPressed(true);
                 await action();
-                setPressed(false);
               }
             : () => {
-                console.log(open);
                 setOpen(true);
               }
         }

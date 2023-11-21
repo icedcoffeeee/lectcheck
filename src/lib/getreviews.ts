@@ -25,5 +25,5 @@ export async function getLeaderboardList() {
       list[tags.indexOf(v.lecturerTag)][1] = average([currAvg, ...v.reviews]);
     }
   });
-  return list.sort((a, b) => b[1] - a[1]).slice(0, 3);
+  return list.sort((a, b) => b[1] - a[1]).slice(0, 4);
 }

@@ -7,7 +7,6 @@ import { getRelativeTime } from "@/lib/relativetime";
 import { sortByDateOrLikes } from "@/lib/sortbydateorlikes";
 import { Divider } from "@mui/material";
 import {
-  Loader2,
   LucideIcon,
   LucideProps,
   ThumbsDownIcon,
@@ -86,6 +85,7 @@ export function ReviewCard({
             action={async () => {
               setLiked(liked === 1 ? 0 : 1);
               await likeReview(review, userId);
+              setLiked(0);
             }}
             color={
               liked === 1 || review.likeIds.includes(userId) ? "blue" : "black"
@@ -97,6 +97,7 @@ export function ReviewCard({
             action={async () => {
               setLiked(liked === -1 ? 0 : 1);
               await dislikeReview(review, userId);
+              setLiked(0);
             }}
             color={
               liked === -1 || review.dislikeIds.includes(userId)

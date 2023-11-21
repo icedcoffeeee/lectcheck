@@ -1,50 +1,41 @@
-import { getLecturerInfo } from "@/lib/getlecturerinfo";
-import { getLeaderboardList } from "@/lib/getreviews";
 import { Skeleton } from "@mui/material";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, Suspense } from "react";
 
 export async function Leaderboard({
+  infos,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
-  const infos = await Promise.all(
-    await getLeaderboardList().then((i) =>
-      i.map((j) =>
-        getLecturerInfo(j[0]).then((k) => {
-          return {
-            tag: j[0],
-            avg: j[1],
-            name: k?.name ?? "",
-            imgSrc: k?.imgSrc ?? "",
-          };
-        })
-      )
-    )
-  );
+}: {
+  infos: Promise<{ tag: string; avg: number; name: string; imgSrc: string }>[];
+} & HTMLAttributes<HTMLDivElement>) {
   return (
     <div {...props}>
       <h2 className="my-2 flex gap-2 items-center">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
         {infos.map((info, n) => {
-          return <LeaderboardCard key={n} promise_info={info} />;
+          return (
+            <Suspense key={n} fallback={<SkeletonLeaderboardCard />}>
+              <LeaderboardCard promise_info={info} />
+            </Suspense>
+          );
         })}
       </div>
     </div>
   );
 }
 
-function LeaderboardCard({
+async function LeaderboardCard({
   promise_info,
 }: {
-  promise_info: {
+  promise_info: Promise<{
     tag: string;
     avg: number;
     name: string;
     imgSrc: string;
-  };
+  }>;
 }) {
-  const info = promise_info;
+  const info = await promise_info;
   return (
     <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
       <Image

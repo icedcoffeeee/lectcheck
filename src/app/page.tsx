@@ -2,12 +2,30 @@ import { Leaderboard } from "@/components/leaderboard";
 import { SplitPanes } from "@/components/splitpanes";
 import { TagExample } from "@/components/tagexample";
 import { HL, UL } from "@/components/ui/typography";
+import { getLecturerInfo } from "@/lib/getlecturerinfo";
+import { getLeaderboardList } from "@/lib/getreviews";
 
 export default async function Home() {
+  const infos = await getLeaderboardList().then((i) =>
+    i.map((j) =>
+      getLecturerInfo(j[0]).then((k) => {
+        return {
+          tag: j[0],
+          avg: j[1],
+          name: k?.name ?? "",
+          imgSrc: k?.imgSrc ?? "",
+        };
+      })
+    )
+  );
   return (
     <SplitPanes
       leftpane={[
-        <Leaderboard key={"leaderboard"} className="hidden md:contents" />,
+        <Leaderboard
+          key={"leaderboard"}
+          infos={infos}
+          className="hidden md:contents"
+        />,
       ]}
     >
       <h1>LectCheck</h1>
@@ -40,7 +58,7 @@ export default async function Home() {
           others&apos; reviews have helped you.
         </li>
       </ul>
-      <Leaderboard className="contents md:hidden" />
+      <Leaderboard infos={infos} className="contents md:hidden" />
     </SplitPanes>
   );
 }

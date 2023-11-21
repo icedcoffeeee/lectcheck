@@ -1,54 +1,66 @@
+import { getLecturerInfo } from "@/lib/getlecturerinfo";
+import { getLeaderboardList } from "@/lib/getreviews";
 import { Skeleton } from "@mui/material";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { HTMLAttributes, Suspense } from "react";
 
 export async function Leaderboard({
-  list,
-  infos,
   ...props
-}: {
-  list: [string, number][];
-  infos: Promise<Promise<string[]>[]>;
-} & HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement>) {
+  const infos = await getLeaderboardList().then((i) =>
+    i.map((j) =>
+      getLecturerInfo(j[0]).then((k) => {
+        return {
+          tag: j[0],
+          avg: j[1],
+          name: k?.name ?? "",
+          imgSrc: k?.imgSrc ?? "",
+        };
+      })
+    )
+  );
   return (
     <div {...props}>
       <h2 className="my-2 flex gap-2 items-center">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
-        {(await infos).map((info, n) => (
-          <Suspense key={n} fallback={<SkeletonLeaderboardCard />}>
-            <LeaderboardCard tag={list[n][0]} avg={list[n][1]} info={info} />
-          </Suspense>
-        ))}
+        {infos.map((info, n) => {
+          return (
+            <Suspense key={n} fallback={<SkeletonLeaderboardCard />}>
+              <LeaderboardCard promise_info={info} />
+            </Suspense>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 async function LeaderboardCard({
-  tag,
-  avg,
-  info,
+  promise_info,
 }: {
-  tag: string;
-  avg: number;
-  info: Promise<string[]>;
+  promise_info: Promise<{
+    tag: string;
+    avg: number;
+    name: string;
+    imgSrc: string;
+  }>;
 }) {
-  const [imgSrc, name] = await info;
+  const info = await promise_info;
   return (
     <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
       <Image
-        src={imgSrc}
+        src={info.imgSrc}
         width={50}
         height={50}
-        alt={name}
+        alt={info.name}
         className="object-cover h-full border-2 border-gray-900 aspect-square rounded-full"
       />
       <div className="w-full grid grid-cols-2 items-baseline">
-        <p className="col-span-2">{name}</p>
-        <p>({tag})</p>
+        <p className="col-span-2">{info.name}</p>
+        <p>({info.tag})</p>
         <p className="place-self-end flex gap-2 items-center">
-          {avg}
+          {info.avg}
           <Star stroke="orange" size={"0.9rem"} />
         </p>
       </div>

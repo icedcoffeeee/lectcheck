@@ -23,7 +23,7 @@ export default async function Home() {
       leftpane={[
         <Leaderboard
           key={"leaderboard"}
-          infos={infos}
+          promise_infos={infos}
           className="hidden md:contents"
         />,
       ]}
@@ -58,7 +58,7 @@ export default async function Home() {
           others&apos; reviews have helped you.
         </li>
       </ul>
-      <Leaderboard infos={infos} className="contents md:hidden" />
+      <Leaderboard promise_infos={infos} className="contents md:hidden" />
     </SplitPanes>
   );
 }

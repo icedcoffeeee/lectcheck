@@ -1,41 +1,48 @@
+"use client";
+
 import { Skeleton } from "@mui/material";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { HTMLAttributes, Suspense } from "react";
+import { HTMLAttributes, useEffect, useState } from "react";
+
+interface Info {
+  tag: string;
+  avg: number;
+  name: string;
+  imgSrc: string;
+}
 
 export async function Leaderboard({
-  infos,
+  promise_infos,
   ...props
 }: {
-  infos: Promise<{ tag: string; avg: number; name: string; imgSrc: string }>[];
+  promise_infos: Promise<Info>[];
 } & HTMLAttributes<HTMLDivElement>) {
+  const [infos, setInfos] = useState<Info[]>([]);
+  useEffect(() => {
+    async function setData() {
+      setInfos(await Promise.all(promise_infos));
+    }
+    setData();
+  }, [promise_infos]);
   return (
     <div {...props}>
       <h2 className="my-2 flex gap-2 items-center">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
-        {infos.map((info, n) => {
-          return (
-            <Suspense key={n} fallback={<SkeletonLeaderboardCard />}>
-              <LeaderboardCard promise_info={info} />
-            </Suspense>
-          );
-        })}
+        {infos.length
+          ? infos.map((info, n) => (
+              <LeaderboardCard key={n} promise_info={info} />
+            ))
+          : Array.from({ length: 4 }).map((_, n) => (
+              <SkeletonLeaderboardCard key={n} />
+            ))}
       </div>
     </div>
   );
 }
 
-async function LeaderboardCard({
-  promise_info,
-}: {
-  promise_info: Promise<{
-    tag: string;
-    avg: number;
-    name: string;
-    imgSrc: string;
-  }>;
-}) {
-  const info = await promise_info;
+async function LeaderboardCard({ promise_info }: { promise_info: Info }) {
+  const info = promise_info;
   return (
     <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
       <Image

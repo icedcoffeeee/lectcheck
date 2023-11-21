@@ -4,10 +4,9 @@ import { JSDOM } from "jsdom";
 export const runtime = "edge";
 
 export async function getItemsFromTag(tag: string) {
-  return axios
-    .get<string>("https://umexpert.um.edu.my/" + tag)
-    .then(async ({ data }) => {
-      const parent = new JSDOM(data).window.document.querySelector(
+  return fetch("https://umexpert.um.edu.my/" + tag, { cache: "no-cache" }).then(
+    async (res) => {
+      const parent = new JSDOM(await res.text()).window.document.querySelector(
         ".profile-upper"
       );
       if (parent === null) return null;
@@ -20,7 +19,8 @@ export async function getItemsFromTag(tag: string) {
       }
 
       return items;
-    });
+    }
+  );
 }
 
 export async function getLecturerInfo(tag: string) {

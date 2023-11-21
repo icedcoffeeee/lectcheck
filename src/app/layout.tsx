@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Poppins as Font } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/navbar";
-import { Dot } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
 import { Analytics } from "@vercel/analytics/react";
-import Head from "next/head";
+import { Footer } from "@/components/footer";
 
 const font = Font({ weight: "400", subsets: ["latin"] });
 
@@ -35,11 +34,7 @@ export default async function RootLayout({
         <Analytics />
         <NavBar session={session} />
         <div className="grow m-3 md:flex md:justify-center">{children}</div>
-        <div className="w-full flex py-5 justify-center items-center text-xs">
-          <span>copyright (c) 2023</span>
-          <Dot />
-          <span>icedcoffeeee</span>
-        </div>
+        <Footer />
       </body>
     </html>
   );

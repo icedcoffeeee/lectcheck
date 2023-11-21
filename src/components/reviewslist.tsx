@@ -85,7 +85,6 @@ export function ReviewCard({
             action={async () => {
               setLiked(liked === 1 ? 0 : 1);
               await likeReview(review, userId);
-              setLiked(0);
             }}
             color={
               liked === 1 || review.likeIds.includes(userId) ? "blue" : "black"
@@ -97,7 +96,6 @@ export function ReviewCard({
             action={async () => {
               setLiked(liked === -1 ? 0 : 1);
               await dislikeReview(review, userId);
-              setLiked(0);
             }}
             color={
               liked === -1 || review.dislikeIds.includes(userId)

@@ -16,7 +16,6 @@ export async function likeReview(review: ReviewType, userId: string) {
       dislikeIds,
     },
   });
-  revalidatePath("/" + review.lecturerTag);
   return;
 }
 
@@ -33,6 +32,5 @@ export async function dislikeReview(review: ReviewType, userId: string) {
       dislikeIds,
     },
   });
-  revalidatePath("/" + review.lecturerTag);
   return;
 }

@@ -6,7 +6,7 @@ import { getLecturerInfo } from "@/lib/getlecturerinfo";
 import { getLeaderboardList } from "@/lib/getreviews";
 
 export default async function Home() {
-  const infos = await getLeaderboardList().then((i) =>
+  const infos = getLeaderboardList().then((i) =>
     i.map((j) =>
       getLecturerInfo(j[0]).then((k) => {
         return {

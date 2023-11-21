@@ -16,12 +16,12 @@ export async function Leaderboard({
   promise_infos,
   ...props
 }: {
-  promise_infos: Promise<Info>[];
+  promise_infos: Promise<Promise<Info>[]>;
 } & HTMLAttributes<HTMLDivElement>) {
   const [infos, setInfos] = useState<Info[]>([]);
   useEffect(() => {
     async function setData() {
-      setInfos(await Promise.all(promise_infos));
+      setInfos(await Promise.all(await promise_infos));
     }
     setData();
   }, [promise_infos]);

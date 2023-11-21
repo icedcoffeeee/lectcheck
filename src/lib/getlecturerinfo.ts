@@ -1,4 +1,3 @@
-import axios from "axios";
 import { JSDOM } from "jsdom";
 
 export const runtime = "edge";

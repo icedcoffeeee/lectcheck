@@ -1,6 +1,5 @@
 import { JSDOM } from "jsdom";
-
-export const runtime = "edge";
+import prisma from "./db";
 
 export async function getItemsFromTag(tag: string) {
   return fetch("https://umexpert.um.edu.my/" + tag, { cache: "no-cache" }).then(
@@ -23,12 +22,17 @@ export async function getItemsFromTag(tag: string) {
 }
 
 export async function getLecturerInfo(tag: string) {
-  const time = Number(new Date());
   const items = await getItemsFromTag(tag);
   if (items === null) return null;
 
   const [imgSrc, name, department, faculty, email] = items;
-  console.log(Number(new Date()) - time, tag);
+
+  const res = await getLectDB(tag);
+  if (res === null) {
+    await prisma.lect.create({
+      data: { tag: tag, name: name, imgSrc: imgSrc },
+    });
+  }
 
   return {
     name: name,
@@ -42,3 +46,7 @@ export async function getLecturerInfo(tag: string) {
 export type LecturerInfoType = NonNullable<
   Awaited<ReturnType<typeof getLecturerInfo>>
 >;
+
+export function getLectDB(tag: string) {
+  return prisma.lect.findFirst({ where: { tag: tag } });
+}

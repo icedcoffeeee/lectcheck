@@ -1,10 +1,15 @@
+import { Leaderboard } from "@/components/leaderboard";
 import { SplitPanes } from "@/components/splitpanes";
 import { TagExample } from "@/components/tagexample";
 import { HL, UL } from "@/components/ui/typography";
 
 export default async function Home() {
   return (
-    <SplitPanes>
+    <SplitPanes
+      leftpane={[
+        <Leaderboard key={"leaderboard"} className="hidden md:contents" />,
+      ]}
+    >
       <h1>LectCheck</h1>
       <p>Welcome to LectCheck, where you can rate your lecturers/professors!</p>
 
@@ -35,6 +40,7 @@ export default async function Home() {
           others&apos; reviews have helped you.
         </li>
       </ul>
+      <Leaderboard className="md:hidden" />
     </SplitPanes>
   );
 }

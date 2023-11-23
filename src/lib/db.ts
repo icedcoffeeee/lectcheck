@@ -14,5 +14,6 @@ const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
 export default prisma;
 export type ReviewType = Prisma.ReviewGetPayload<true>;
+export type LectDBType = Prisma.LectGetPayload<true>;
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

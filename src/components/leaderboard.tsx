@@ -1,62 +1,45 @@
-"use client";
-
+import { getLectDB } from "@/lib/getlecturerinfo";
+import { getLeaderboardList } from "@/lib/getreviews";
 import { Skeleton } from "@mui/material";
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { HTMLAttributes, useEffect, useState } from "react";
-
-interface Info {
-  tag: string;
-  avg: number;
-  name: string;
-  imgSrc: string;
-}
+import { HTMLAttributes, Suspense } from "react";
 
 export async function Leaderboard({
-  promise_infos,
   ...props
-}: {
-  promise_infos: Promise<Promise<Info>[]>;
-} & HTMLAttributes<HTMLDivElement>) {
-  const [infos, setInfos] = useState<Info[]>([]);
-  useEffect(() => {
-    async function setData() {
-      setInfos(await Promise.all(await promise_infos));
-    }
-    setData();
-  }, [promise_infos]);
+}: HTMLAttributes<HTMLDivElement>) {
+  const infos = await getLeaderboardList();
   return (
     <div {...props}>
       <h2 className="my-2 flex gap-2 items-center">Lecturer Leaderboard</h2>
       <div className={"grid grid-cols-1 gap-2"}>
-        {infos.length
-          ? infos.map((info, n) => (
-              <LeaderboardCard key={n} promise_info={info} />
-            ))
-          : Array.from({ length: 4 }).map((_, n) => (
-              <SkeletonLeaderboardCard key={n} />
-            ))}
+        {infos.map((info, n) => (
+          <Suspense key={n} fallback={<SkeletonLeaderboardCard />}>
+            <LeaderboardCard info={info} />
+          </Suspense>
+        ))}
       </div>
     </div>
   );
 }
 
-async function LeaderboardCard({ promise_info }: { promise_info: Info }) {
-  const info = promise_info;
+async function LeaderboardCard({ info }: { info: [string, number] }) {
+  const [tag, avg] = info;
+  const { name, imgSrc } = (await getLectDB(tag)) ?? { name: "", imgSrc: "" };
   return (
     <div className="flex gap-4 p-2 bg-white rounded-md text-black text-sm h-fit">
       <Image
-        src={info.imgSrc}
+        src={imgSrc}
         width={50}
         height={50}
-        alt={info.name}
+        alt={name}
         className="object-cover h-full border-2 border-gray-900 aspect-square rounded-full"
       />
       <div className="w-full grid grid-cols-2 items-baseline">
-        <p className="col-span-2">{info.name}</p>
-        <p>({info.tag})</p>
+        <p className="col-span-2">{name}</p>
+        <p>({tag})</p>
         <p className="place-self-end flex gap-2 items-center">
-          {info.avg}
+          {avg}
           <Star stroke="orange" size={"0.9rem"} />
         </p>
       </div>

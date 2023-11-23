@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Lect {
+  id     Int    @id @default(autoincrement())
+  tag    String @unique
+  name   String
+  imgSrc String
+}
+
 model Review {
   id          Int      @id @default(autoincrement())
   authorId    String

@@ -8,10 +8,13 @@ datasource db {
 }
 
 model Lect {
-  id     Int    @id @default(autoincrement())
-  tag    String @unique
-  name   String
-  imgSrc String
+  id         Int     @id @default(autoincrement())
+  tag        String  @unique
+  name       String
+  imgSrc     String
+  faculty    String
+  department String
+  email      String
 }
 
 model Review {

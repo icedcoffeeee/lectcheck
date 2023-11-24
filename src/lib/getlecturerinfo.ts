@@ -22,25 +22,18 @@ export async function getItemsFromTag(tag: string) {
 }
 
 export async function getLecturerInfo(tag: string) {
-  const items = await getItemsFromTag(tag);
-  if (items === null) return null;
-
-  const [imgSrc, name, department, faculty, email] = items;
-
-  const res = await getLectDB(tag);
+  let res = await getLectDB(tag);
   if (res === null) {
-    await prisma.lect.create({
-      data: { tag: tag, name: name, imgSrc: imgSrc },
+    const items = await getItemsFromTag(tag);
+    if (items === null) return null; // not found
+
+    const [imgSrc, name, department, faculty, email] = items;
+
+    res ??= await prisma.lect.create({
+      data: { tag, name, imgSrc, faculty, department, email },
     });
   }
-
-  return {
-    name: name,
-    email: email,
-    faculty: faculty,
-    department: department,
-    imgSrc: imgSrc,
-  };
+  return res;
 }
 
 export type LecturerInfoType = NonNullable<

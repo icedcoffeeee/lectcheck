@@ -636,7 +636,7 @@ export default function Page() {
       <p>Address: 50603 Kuala Lumpur</p>
       <br />
 
-      <p>Email: hazim.saharuddin@gmail.com</p>
+      <p>Email: lectcheck@gmail.com</p>
       <br />
     </div>
   );

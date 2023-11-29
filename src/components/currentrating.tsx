@@ -65,6 +65,7 @@ export function SingleRating({
       <div className="flex gap-4 items-center">
         <Rating
           readOnly
+          precision={0.1}
           value={val}
           sx={{ stroke: "white" }}
           emptyIcon={<Star sx={{ stroke: "white" }} fontSize={"inherit"} />}

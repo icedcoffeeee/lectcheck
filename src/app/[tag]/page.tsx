@@ -3,7 +3,7 @@ import { CurrentRating } from "@/components/currentrating";
 import { LecturerInfo } from "@/components/lecturerinfo";
 import { RUBRICS, ReviewsList } from "@/components/reviewslist";
 import { SplitPanes } from "@/components/splitpanes";
-import { filterExtreme, getReviews } from "@/lib/getreviews";
+import { filterExtreme, filterLikes, getReviews } from "@/lib/getreviews";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 
@@ -13,13 +13,15 @@ export default async function Page({
   params: { tag: string };
 }) {
   const session = await getServerSession(options);
-  const allReviews = await getReviews(tag);
+  const allReviews = (await getReviews(tag))
+    .filter(filterExtreme)
+    .filter(filterLikes);
   const commentedReviews = allReviews.filter(
     (r) =>
       (r.comments !== null && r.comments.length > 0) ||
       r.authorId === session?.user?.email?.split("@")[0]
   );
-  const trueReviews = allReviews.filter(filterExtreme).map((r) => r.reviews);
+  const trueReviews = allReviews.map((r) => r.reviews);
   const classes = allReviews
     .map((r) => r.kelas)
     .filter((v, n, a) => a.indexOf(v) === n);

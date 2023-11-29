@@ -36,12 +36,9 @@ export async function ReviewsList({
 }) {
   return (
     <div className={REVIEWGRIDCLASS}>
-      {reviews
-        .sort(sortByDateOrLikes)
-        .filter((a) => a.likeIds.length - a.dislikeIds.length > -5)
-        .map((r, n) => (
-          <ReviewCard review={r} session={session} key={n} />
-        ))}
+      {reviews.sort(sortByDateOrLikes).map((r, n) => (
+        <ReviewCard review={r} session={session} key={n} />
+      ))}
     </div>
   );
 }

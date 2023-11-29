@@ -14,7 +14,9 @@ export async function getLeaderboardList() {
     await prisma.review.findMany({
       select: { lecturerTag: true, comments: true, reviews: true },
     })
-  ).filter(filterExtreme);
+  )
+    .filter(filterExtreme)
+    .filter(filterLikes);
 
   const tags = allReviews
     .map((r) => r.lecturerTag)
@@ -39,4 +41,8 @@ export function filterExtreme(review: any) {
   if ([1, 5].includes(average(review.reviews)) && review.comments === "")
     return false;
   return true;
+}
+
+export function filterLikes(review: any) {
+  return review.likeIds.length - review.dislikeIds.length > -5;
 }

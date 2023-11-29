@@ -12,7 +12,13 @@ export async function getMyReviews(userId: string) {
 export async function getLeaderboardList() {
   const allReviews = (
     await prisma.review.findMany({
-      select: { lecturerTag: true, comments: true, reviews: true },
+      select: {
+        lecturerTag: true,
+        comments: true,
+        reviews: true,
+        likeIds: true,
+        dislikeIds: true,
+      },
     })
   )
     .filter(filterExtreme)

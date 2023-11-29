@@ -14,7 +14,8 @@ export default async function Page() {
   const myReviews = await getMyReviews(
     session.user?.email?.split("@")[0] ?? ""
   );
-  const containsFullNoComment = myReviews.filter(!filterExtreme).length > 0;
+  const containsFullNoComment =
+    myReviews.filter((r) => !filterExtreme(r)).length > 0;
   return (
     <SplitPanes
       leftpane={[

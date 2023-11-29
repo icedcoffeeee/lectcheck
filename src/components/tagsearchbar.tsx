@@ -8,10 +8,6 @@ import { useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 
 export function TagSearchBar() {
-  // const [pressed, setPressed] = useOptimistic(
-  //   false,
-  //   (_, value: boolean) => value
-  // );
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   return (
@@ -20,7 +16,6 @@ export function TagSearchBar() {
         const tag = (data.get("tag") as string)
           .toLowerCase()
           .replaceAll(".", "-");
-        // setPressed(!!tag.length);
         if (!tag.includes(" ")) router.push(tag);
         else setError("Tag must not include a space.");
       }}

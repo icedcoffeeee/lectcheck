@@ -3,6 +3,8 @@
 import { z } from "zod";
 import prisma, { ReviewType } from "./db";
 import { revalidatePath } from "next/cache";
+import { average } from "./utils";
+import { filterExtreme } from "./getreviews";
 
 export async function addReview(_prevState: any, formData: FormData) {
   const schema = z.object({
@@ -46,18 +48,24 @@ export async function addReview(_prevState: any, formData: FormData) {
           "Delete your previous review to submit a new one."
       );
     }
+    if (!filterExtreme(data))
+      throw Error(
+        "Full reviews require a comment. " +
+          "This is to ensure helpful reviews."
+      );
+
     await prisma.review.create({ data: data });
     revalidatePath("/" + tag);
     return { message: ["Added!"], success: true };
   } catch (e) {
     if (e instanceof z.ZodError) {
       return {
-        message: ["Error:", ...e.errors.map((r) => r.message)],
+        message: [...e.errors.map((r) => r.message)],
         success: false,
       };
     }
     if (e instanceof Error) {
-      return { message: ["Error", e.message], success: false };
+      return { message: [e.message], success: false };
     }
     console.log(e);
     return { message: ["Error"], success: false };

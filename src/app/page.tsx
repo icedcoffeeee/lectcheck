@@ -1,7 +1,7 @@
 import { Leaderboard } from "@/components/leaderboard";
 import { SplitPanes } from "@/components/splitpanes";
 import { TagExample } from "@/components/tagexample";
-import { HL, UL } from "@/components/ui/typography";
+import { CallOut, HL, UL } from "@/components/ui/typography";
 
 export default async function Home() {
   return (
@@ -38,6 +38,10 @@ export default async function Home() {
           encourage you to return the favor by writing your own review. Your
           insights can help future students make informed choices, just as
           others&apos; reviews have helped you.
+          <CallOut emoji="⚠️">
+            Remember, this is not CTES. The reviews are written by students, for
+            students.
+          </CallOut>
         </li>
       </ul>
       <Leaderboard className="md:hidden" />

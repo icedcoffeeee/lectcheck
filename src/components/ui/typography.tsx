@@ -16,3 +16,18 @@ export function Code({ children }: { children: string }) {
     </span>
   );
 }
+
+export function CallOut({
+  children,
+  emoji,
+}: {
+  children: string;
+  emoji: string;
+}) {
+  return (
+    <div className="flex gap-3 my-2 p-2 bg-yellow-800/50 rounded shadow-md">
+      <span>{emoji}</span>
+      <span>{children}</span>
+    </div>
+  );
+}

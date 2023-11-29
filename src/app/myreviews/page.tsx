@@ -1,7 +1,8 @@
 import { REVIEWGRIDCLASS, ReviewCard } from "@/components/reviewslist";
 import { SplitPanes } from "@/components/splitpanes";
+import { CallOut } from "@/components/ui/typography";
 import { ReviewType } from "@/lib/db";
-import { getMyReviews } from "@/lib/getreviews";
+import { filterExtreme, getMyReviews } from "@/lib/getreviews";
 import { sortByDateOrLikes } from "@/lib/sortbydateorlikes";
 import { Session, getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -11,10 +12,20 @@ export default async function Page() {
   const session = await getServerSession(options);
   if (!session) redirect("/api/auth/signin");
   const myReviews = await getMyReviews(
-    session.user?.email?.split("@")[0] ?? "",
+    session.user?.email?.split("@")[0] ?? ""
   );
+  const containsFullNoComment = myReviews.filter(!filterExtreme).length > 0;
   return (
-    <SplitPanes>
+    <SplitPanes
+      leftpane={[
+        containsFullNoComment && (
+          <CallOut key={1} emoji={"⚠️"}>
+            Some of your reviews have been hidden. Giving extremely high/low
+            ratings require a comment to ensure helpful reviews
+          </CallOut>
+        ),
+      ]}
+    >
       <h2 className="mb-2">My Reviews</h2>
       <div className={REVIEWGRIDCLASS}>
         {myReviews.sort(sortByDateOrLikes).map((r, n) => (
@@ -33,12 +44,6 @@ function MyReviewsCard({
   session: Session;
 }) {
   return (
-    <div>
-      <ReviewCard
-        review={review}
-        session={session}
-        title={review.lecturerTag}
-      />
-    </div>
+    <ReviewCard review={review} session={session} title={review.lecturerTag} />
   );
 }

@@ -45,7 +45,7 @@ export function AddReviewButton({
           className="rounded-md"
         >
           <DialogTitle className="text-black">Add Review</DialogTitle>
-          <DialogContent className=" text-black">
+          <DialogContent className="text-black">
             Make sure your review is fair and unbiased. Other people will see
             and depend on them.
             <Divider sx={{ my: 1.5, borderColor: "#222" }} />
@@ -105,7 +105,7 @@ function AddReviewForm({
                         r = v;
                       }
                       return r;
-                    }),
+                    })
                   );
                 }
               }}

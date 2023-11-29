@@ -10,20 +10,33 @@ export async function getMyReviews(userId: string) {
 }
 
 export async function getLeaderboardList() {
-  const allReviews = await prisma.review.findMany({
-    select: { lecturerTag: true, reviews: true },
-  });
+  const allReviews = (
+    await prisma.review.findMany({
+      select: { lecturerTag: true, comments: true, reviews: true },
+    })
+  ).filter(filterExtreme);
+
   const tags = allReviews
     .map((r) => r.lecturerTag)
     .filter((v, n, a) => a.indexOf(v) === n);
+
   let list: [string, number][] = tags.map((t) => [t, 0]);
+
   allReviews.map((v) => {
     const currAvg = list[tags.indexOf(v.lecturerTag)][1];
+
     if (currAvg == 0) {
       list[tags.indexOf(v.lecturerTag)][1] = average(v.reviews);
     } else {
       list[tags.indexOf(v.lecturerTag)][1] = average([currAvg, ...v.reviews]);
     }
   });
+
   return list.sort((a, b) => b[1] - a[1]).slice(0, 4);
+}
+
+export function filterExtreme(review: any) {
+  if ([1, 5].includes(average(review.reviews)) && review.comments === "")
+    return false;
+  return true;
 }

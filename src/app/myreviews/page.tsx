@@ -20,7 +20,7 @@ export default async function Page() {
     <SplitPanes
       leftpane={[
         containsFullNoComment && (
-          <CallOut key={1} emoji={"⚠️"}>
+          <CallOut key={1} emoji={"⚠️"} color="bg-yellow-800">
             Some of your reviews have been hidden. Giving extremely high/low
             ratings require a comment to ensure helpful reviews
           </CallOut>

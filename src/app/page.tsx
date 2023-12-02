@@ -38,7 +38,7 @@ export default async function Home() {
           encourage you to return the favor by writing your own review. Your
           insights can help future students make informed choices, just as
           others&apos; reviews have helped you.
-          <CallOut emoji="⚠️">
+          <CallOut emoji="📝" color="bg-green-800">
             Remember, this is not CTES. The reviews are written by students, for
             students.
           </CallOut>

@@ -20,12 +20,16 @@ export function Code({ children }: { children: string }) {
 export function CallOut({
   children,
   emoji,
+  color,
 }: {
   children: string;
   emoji: string;
+  color: string;
 }) {
   return (
-    <div className="flex gap-3 my-2 p-2 bg-yellow-800/50 rounded shadow-md">
+    <div
+      className={"flex gap-3 my-2 p-2 bg-opacity-50 rounded shadow-md " + color}
+    >
       <span>{emoji}</span>
       <span>{children}</span>
     </div>

@@ -8,23 +8,23 @@ datasource db {
 }
 
 model Lect {
-  id         Int     @id @default(autoincrement())
-  tag        String  @unique
+  id         Int    @id @default(autoincrement())
+  tag        String @unique
   name       String
   imgSrc     String
-  faculty    String
   department String
+  faculty    String
   email      String
 }
 
 model Review {
   id          Int      @id @default(autoincrement())
-  authorId    String
+  authorId    BigInt
   reviews     Int[]
   comments    String?
   lecturerTag String
   createdAt   DateTime @default(now())
   kelas       String
-  likeIds     String[] @default([])
-  dislikeIds  String[] @default([])
+  dislikeIds  BigInt[] @default([])
+  likeIds     BigInt[] @default([])
 }

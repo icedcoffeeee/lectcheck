@@ -3,13 +3,12 @@
 import { z } from "zod";
 import prisma, { ReviewType } from "./db";
 import { revalidatePath } from "next/cache";
-import { average } from "./utils";
 import { filterExtreme } from "./getreviews";
 
 export async function addReview(_prevState: any, formData: FormData) {
   const schema = z.object({
     lecturerTag: z.string().min(1).max(10),
-    authorId: z.string(),
+    authorId: z.number(),
     reviews: z.array(z.coerce.number().int().positive()),
     kelas: z
       .string()

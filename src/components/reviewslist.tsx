@@ -17,6 +17,7 @@ import { Session } from "next-auth";
 import { useState } from "react";
 import { ErrorSnackbar } from "./addreviewbutton";
 import { ClassCode, SingleRating } from "./currentrating";
+import stringHash from "string-hash";
 
 export const RUBRICS = [
   ["Teaching", "How well do they present the knowledge?"],
@@ -52,7 +53,7 @@ export function ReviewCard({
   session: Session | null;
   title?: string;
 }) {
-  const userId = session?.user?.email?.split("@")[0] ?? "";
+  const userId = stringHash(session?.user?.email?.split("@")[0] ?? "");
   const hasComment = !!review.comments?.length;
   return (
     <div className="bg-white flex flex-col text-black rounded-md md:max-w-xs p-3 shadow-md">
@@ -65,7 +66,7 @@ export function ReviewCard({
       </p>
       <span className="grow" />
       <div className="flex items-center justify-between mt-2">
-        {userId === review.authorId ? (
+        {userId === Number(review.authorId) ? (
           <IconButton
             Icon={Trash}
             action={async () => await deleteReview(review)}

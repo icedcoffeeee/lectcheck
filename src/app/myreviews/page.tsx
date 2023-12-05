@@ -7,12 +7,13 @@ import { sortByDateOrLikes } from "@/lib/sortbydateorlikes";
 import { Session, getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { options } from "../api/auth/[...nextauth]/options";
+import stringHash from "string-hash";
 
 export default async function Page() {
   const session = await getServerSession(options);
   if (!session) redirect("/api/auth/signin");
   const myReviews = await getMyReviews(
-    session.user?.email?.split("@")[0] ?? ""
+    stringHash(session.user?.email?.split("@")[0] ?? "")
   );
   const containsFullNoComment =
     myReviews.filter((r) => !filterExtreme(r)).length > 0;

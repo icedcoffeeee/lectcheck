@@ -6,6 +6,7 @@ import { SplitPanes } from "@/components/splitpanes";
 import { filterExtreme, filterLikes, getReviews } from "@/lib/getreviews";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
+import stringHash from "string-hash";
 
 export default async function Page({
   params: { tag },
@@ -19,7 +20,8 @@ export default async function Page({
   const commentedReviews = allReviews.filter(
     (r) =>
       (r.comments !== null && r.comments.length > 0) ||
-      r.authorId === session?.user?.email?.split("@")[0]
+      Number(r.authorId) ===
+        stringHash(session?.user?.email?.split("@")[0] ?? "")
   );
   const trueReviews = allReviews.map((r) => r.reviews);
   const classes = allReviews

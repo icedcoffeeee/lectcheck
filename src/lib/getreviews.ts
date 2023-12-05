@@ -5,7 +5,7 @@ export async function getReviews(tag: string) {
   return prisma.review.findMany({ where: { lecturerTag: tag } });
 }
 
-export async function getMyReviews(userId: number) {
+export async function getMyReviews(userId: bigint) {
   return prisma.review.findMany({ where: { authorId: userId } });
 }
 

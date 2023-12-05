@@ -20,8 +20,8 @@ export default async function Page({
   const commentedReviews = allReviews.filter(
     (r) =>
       (r.comments !== null && r.comments.length > 0) ||
-      Number(r.authorId) ===
-        stringHash(session?.user?.email?.split("@")[0] ?? "")
+      r.authorId ===
+        BigInt(stringHash(session?.user?.email?.split("@")[0] ?? ""))
   );
   const trueReviews = allReviews.map((r) => r.reviews);
   const classes = allReviews

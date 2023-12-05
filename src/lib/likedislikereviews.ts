@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 import prisma, { ReviewType } from "./db";
 
-export async function likeReview(review: ReviewType, userId: number) {
-  const filt = (e: number) => e !== userId;
+export async function likeReview(review: ReviewType, userId: bigint) {
+  const filt = (e: bigint) => e !== userId;
   const already = review.likeIds.includes(userId);
   const likeIds = review.likeIds.filter(filt);
   const dislikeIds = review.dislikeIds.filter(filt);
@@ -19,8 +19,8 @@ export async function likeReview(review: ReviewType, userId: number) {
   return;
 }
 
-export async function dislikeReview(review: ReviewType, userId: number) {
-  const filt = (e: number) => e !== userId;
+export async function dislikeReview(review: ReviewType, userId: bigint) {
+  const filt = (e: bigint) => e !== userId;
   const already = review.dislikeIds.includes(userId);
   const likeIds = review.likeIds.filter(filt);
   const dislikeIds = review.dislikeIds.filter(filt);

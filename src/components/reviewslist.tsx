@@ -53,7 +53,7 @@ export function ReviewCard({
   session: Session | null;
   title?: string;
 }) {
-  const userId = stringHash(session?.user?.email?.split("@")[0] ?? "");
+  const userId = BigInt(stringHash(session?.user?.email?.split("@")[0] ?? ""));
   const hasComment = !!review.comments?.length;
   return (
     <div className="bg-white flex flex-col text-black rounded-md md:max-w-xs p-3 shadow-md">
@@ -66,7 +66,7 @@ export function ReviewCard({
       </p>
       <span className="grow" />
       <div className="flex items-center justify-between mt-2">
-        {userId === Number(review.authorId) ? (
+        {userId === review.authorId ? (
           <IconButton
             Icon={Trash}
             action={async () => await deleteReview(review)}

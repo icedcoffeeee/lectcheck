@@ -13,7 +13,7 @@ export default async function Page() {
   const session = await getServerSession(options);
   if (!session) redirect("/api/auth/signin");
   const myReviews = await getMyReviews(
-    stringHash(session.user?.email?.split("@")[0] ?? "")
+    BigInt(stringHash(session.user?.email?.split("@")[0] ?? ""))
   );
   const containsFullNoComment =
     myReviews.filter((r) => !filterExtreme(r)).length > 0;

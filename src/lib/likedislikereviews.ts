@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import prisma, { ReviewType } from "./db";
 
 export async function likeReview(review: ReviewType, userId: bigint) {

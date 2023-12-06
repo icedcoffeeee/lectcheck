@@ -17,6 +17,7 @@ import { Button } from "./ui/button";
 import { useFormState } from "react-dom";
 import { addReview } from "@/lib/adddeletereview";
 import { RUBRICS } from "./reviewslist";
+import stringHash from "string-hash";
 
 export function AddReviewButton({
   tag,
@@ -87,7 +88,7 @@ function AddReviewForm({
       <input name="tag" value={tag} hidden />
       <input
         name="authorId"
-        value={session.user?.email?.split("@")[0]}
+        value={stringHash(session.user?.email?.split("@")[0] ?? "")}
         hidden
       />
       {RUBRICS.map((R, n) => {

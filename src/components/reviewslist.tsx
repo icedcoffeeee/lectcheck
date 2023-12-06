@@ -53,7 +53,13 @@ export function ReviewCard({
   session: Session | null;
   title?: string;
 }) {
-  const userId = BigInt(stringHash(session?.user?.email?.split("@")[0] ?? ""));
+  const userId = BigInt(
+    stringHash(session?.user?.email?.split("@")[0] ?? "")
+  );
+  const [liked, setLiked] = useState(
+    Number(review.likeIds.includes(userId)) -
+      Number(review.dislikeIds.includes(userId))
+  );
   const hasComment = !!review.comments?.length;
   return (
     <div className="bg-white flex flex-col text-black rounded-md md:max-w-xs p-3 shadow-md">
@@ -76,21 +82,25 @@ export function ReviewCard({
           <p />
         )}
         <span className="flex gap-3 items-baseline">
-          {review.likeIds.length - review.dislikeIds.length}
+          {review.likeIds.filter((e) => e !== userId).length -
+            review.dislikeIds.filter((e) => e !== userId).length +
+            liked}
           <IconButton
             Icon={ThumbsUpIcon}
             action={async () => {
+              setLiked(liked <= 0 ? 1 : 0);
               await likeReview(review, userId);
             }}
-            color={review.likeIds.includes(userId) ? "blue" : "black"}
+            color={liked === 1 ? "blue" : "black"}
             session={session}
           />
           <IconButton
             Icon={ThumbsDownIcon}
             action={async () => {
+              setLiked(liked >= 0 ? -1 : 0);
               await dislikeReview(review, userId);
             }}
-            color={review.dislikeIds.includes(userId) ? "blue" : "black"}
+            color={liked === -1 ? "blue" : "black"}
             session={session}
           />
         </span>

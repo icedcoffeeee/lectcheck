@@ -38,7 +38,7 @@ export async function addReview(_prevState: any, formData: FormData) {
       comments: comments,
     });
     const prevRevs = await prisma.review.findMany({
-      where: { authorId: data.authorId },
+      where: { authorId: data.authorId, lecturerTag: data.lecturerTag },
       select: { kelas: true },
     });
     if (prevRevs.map((r) => r.kelas).includes(data.kelas)) {

@@ -7,7 +7,7 @@ import { filterExtreme } from "./getreviews";
 
 export async function addReview(_prevState: any, formData: FormData) {
   const schema = z.object({
-    lecturerTag: z.string().min(1).max(10),
+    lecturerTag: z.string().min(1).max(400),
     authorId: z.coerce.bigint(),
     reviews: z.array(z.coerce.number().int().positive()),
     kelas: z

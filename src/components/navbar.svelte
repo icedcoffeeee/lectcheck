@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { getContext } from "svelte";
+  import type { SessionWritable } from "../routes/+layout.server";
   import { Card } from "./ui";
 
-  export let hasSession = false;
+  const session = getContext<SessionWritable>("session");
 </script>
 
 <Card
@@ -19,7 +21,7 @@
   <div class="flex gap-3">
     <a href="/">Home</a>
     <a href="/">About</a>
-    {#if !hasSession}
+    {#if !$session}
       <a href="/login">Log In</a>
     {:else}
       <a href="/account">Account</a>

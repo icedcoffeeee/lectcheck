@@ -9,22 +9,22 @@
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const { lect, reviews: posts } = data;
+  const { session, lect, lectPosts } = data;
 
   let categories: number[] = [0, 0, 0, 0];
 
-  posts.forEach((post, _, arr) => {
-    post.reviews.forEach((category, m) => {
+  lectPosts.forEach((post, _, arr) => {
+    post.ratings.forEach((category, m) => {
       categories[m] += category / arr.length;
     });
   });
 
-  const reviews = posts
-    .filter((post) => post.comments)
+  const posts = lectPosts
+    .filter((post) => !!post.content)
     .sort(
       (a, b) =>
-        parseInt(b.createdAt.toISOString()) -
-        parseInt(a.createdAt.toISOString()),
+        parseInt(b.created_at.toISOString()) -
+        parseInt(a.created_at.toISOString()),
     );
 </script>
 
@@ -39,7 +39,7 @@
 </h1>
 
 <div class="flex flex-col gap-2">
-  {#each reviews as review}
-    <PostCard {review} />
+  {#each posts as post}
+    <PostCard {post} {session} />
   {/each}
 </div>

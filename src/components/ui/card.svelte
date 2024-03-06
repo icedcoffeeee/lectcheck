@@ -5,6 +5,9 @@
   export { CN as class };
 </script>
 
-<div class={twMerge("p-2 bg-slate-800 rounded shadow-lg", CN ?? "")}>
+<div
+  {...$$restProps}
+  class={twMerge("p-2 bg-slate-800 rounded shadow-lg", CN ?? "")}
+>
   <slot />
 </div>

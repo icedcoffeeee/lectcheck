@@ -1,25 +1,46 @@
 <script lang="ts">
-  import type { Review } from "@prisma/client";
+  import type { Post } from "$lib/db";
   import { Heart, MessageCircle, MoreHorizontal } from "lucide-svelte";
+  import type { Session } from "../routes/+layout.server";
   import { Card } from "./ui/";
+  //@ts-expect-error "has no types"
+  import hash from "string-hash";
+  import colors from "tailwindcss/colors";
+  import { goto } from "$app/navigation";
 
-  export let review: Review;
+  export let post: Post;
+  export let session: Session = null;
 
-  const { comments, likeIds, createdAt } = review;
+  const { commentIDs, likeUIDs, created_at } = post;
+  const email_hash = hash(session?.user.email ?? "");
+  const liked = likeUIDs.includes(email_hash)
+    ? {
+        color: colors.red[500],
+        fill: colors.red[500],
+      }
+    : {};
+  console.log(email_hash);
 </script>
 
-<Card class="flex flex-col gap-2">
-  <p>{comments}</p>
+<Card
+  style={`view-transition-name: post-${post.id}`}
+  class="flex flex-col gap-2"
+>
+  <button
+    class="text-left"
+    on:click={async () => await goto(`${post.lect_tag}}/${post.id}`)}
+    >{post.content}</button
+  >
   <div class="flex justify-between">
     <div class="flex items-center gap-4">
       <button class="flex items-center gap-2">
-        <Heart size={15} />
-        {likeIds.length}
+        <Heart size={15} {...liked} />
+        {likeUIDs.length}
       </button>
 
       <button class="flex items-center gap-2">
         <MessageCircle size={15} />
-        {likeIds.length}
+        {commentIDs.length}
       </button>
     </div>
 
@@ -27,7 +48,7 @@
       <button><MoreHorizontal size={15} /></button>
 
       <span class="opacity-50">
-        {new Date(createdAt).toLocaleDateString("en-US", {
+        {created_at.toLocaleDateString("en-US", {
           day: "2-digit",
           month: "short",
           year: "numeric",

@@ -1,7 +1,7 @@
 <script>
+    import {Input} from "$components";
   import { Loader2, Search } from "lucide-svelte";
   import colors from "tailwindcss/colors";
-  import { Input } from "./ui";
 
   let loadingSearch = false;
 </script>

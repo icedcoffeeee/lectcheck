@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { PostCard } from "$components";
   import type { PageData } from "./$types";
 
+  import Postcard from "../postcard.svelte";
+
   export let data: PageData;
-  const { session, post } = data;
+  const { post } = data;
 </script>
 
-<PostCard {post} {session} />
+<Postcard showratings {post} />

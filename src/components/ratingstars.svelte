@@ -10,10 +10,10 @@
   }
 </script>
 
-<div class="grid grid-cols-2 gap-2">
+<div class="flex items-center gap-2">
   <div class="flex grow">
     {#each colors as color}
-      <Star fill={color} strokeWidth={0} />
+      <Star size={15} fill={color} strokeWidth={0} />
     {/each}
   </div>
   <span>{amount.toPrecision(3)}</span>

@@ -1,20 +1,23 @@
 <script lang="ts">
-  import { Navbar } from "$components";
-  import { writable } from "svelte/store";
   import "../app.css";
-  import type { LayoutData } from "./$types";
-  import { setContext } from "svelte";
+
   import { onNavigate } from "$app/navigation";
+  import { setContext } from "svelte";
+  import { writable } from "svelte/store";
+  import type { LayoutData } from "./$types";
+
+  import Navbar from "./navbar.svelte";
 
   export let data: LayoutData;
 
-  const session = writable();
-  $: session.set(data.session);
-  setContext("session", session);
+  $: setContext("session", writable(data.session));
 
+  // view transitions api
   onNavigate((navigation) => {
+    // @ts-expect-error unsupported typehints for transitions
     if (!document.startViewTransition) return;
     return new Promise((resolve) => {
+      // @ts-expect-error unsupported typehints for transitions
       document.startViewTransition(async () => {
         resolve();
         await navigation.complete;

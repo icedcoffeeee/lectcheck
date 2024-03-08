@@ -1,5 +1,5 @@
 <script>
-  import { Searchbar } from "$components";
+  import Searchbar from "./searchbar.svelte";
 </script>
 
 <Searchbar />

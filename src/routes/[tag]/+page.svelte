@@ -1,15 +1,21 @@
 <script lang="ts">
-  import {
-    LectInfoCard,
-    LectRatingCard,
-    PostCard,
-    Searchbar,
-  } from "$components";
   import { Plus } from "lucide-svelte";
-  import type { PageData } from "./$types";
+  import type { ActionData, PageData } from "./$types";
+
+  import Searchbar from "../searchbar.svelte";
+  import LectInfoCard from "./lectinfocard.svelte";
+  import LectRatingCard from "./lectratingcard.svelte";
+  import NewPost from "./newpost.svelte";
+  import PostCard from "./postcard.svelte";
+  import { setContext } from "svelte";
+  import { writable } from "svelte/store";
 
   export let data: PageData;
-  const { session, lect, lectPosts } = data;
+  export let form: ActionData;
+
+  let { lect, lectPosts } = data;
+
+  $: setContext("lect", writable(lect));
 
   let categories: number[] = [0, 0, 0, 0];
 
@@ -26,20 +32,28 @@
         parseInt(b.created_at.toISOString()) -
         parseInt(a.created_at.toISOString()),
     );
+
+  let addPost = false;
+  function cancel() {
+    addPost = !addPost;
+  }
 </script>
 
 <Searchbar />
 
-<LectInfoCard {lect} />
-<LectRatingCard {categories} />
+<LectInfoCard />
+<LectRatingCard num={lectPosts.length} {categories} />
 
 <h1 class="flex gap-2 items-center">
   Posts
-  <Plus size={18} />
+  <button on:click={cancel}><Plus size={18} /></button>
 </h1>
 
 <div class="flex flex-col gap-2">
+  {#if addPost}
+    <NewPost {form} {cancel} />
+  {/if}
   {#each posts as post}
-    <PostCard {post} {session} />
+    <PostCard {post} />
   {/each}
 </div>

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import type { SessionWritable } from "../routes/+layout.server";
-  import { Card } from "./ui";
+  import { Card } from "$components";
+  import type { Writable } from "svelte/store";
+  import type { Session } from "$lib/auth";
 
-  const session = getContext<SessionWritable>("session");
+  $: session = getContext<Writable<Session>>("session");
 </script>
 
 <Card

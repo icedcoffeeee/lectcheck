@@ -2,7 +2,7 @@
   import { Star } from "lucide-svelte";
   import colors from "tailwindcss/colors";
 
-  export let values = Array(4).fill(-1);
+  export let values = Array(4).fill(0);
 
   const rubics = ["Teaching", "Assessments", "Guidance", "Reach"];
 </script>
@@ -16,15 +16,15 @@
           .fill(0)
           .map((_, i) => i) as i}
           <button
-            on:click={() => {
-              value = i;
+            on:click|preventDefault={() => {
+              value = i + 1;
             }}
           >
             <Star
               size={15}
               strokeWidth={0}
-              color={value >= i ? colors.yellow[500] : "white"}
-              fill={value >= i ? colors.yellow[500] : "white"}
+              color={value > i ? colors.yellow[500] : "white"}
+              fill={value > i ? colors.yellow[500] : "white"}
             />
           </button>
         {/each}

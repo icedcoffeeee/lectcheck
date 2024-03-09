@@ -3,6 +3,7 @@
   import hash from "string-hash";
 
   import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import type { Session } from "$lib/auth";
   import type { Post } from "$lib/db";
   import {
@@ -15,18 +16,15 @@
 
   import { Card } from "$components";
   import LectRatingCard from "./lectratingcard.svelte";
-  import { getContext } from "svelte";
-  import type { Writable } from "svelte/store";
-  import { page } from "$app/stores";
 
   export let post: Post;
   export let showratings = false;
 
   const { commentIDs, likeUIDs, created_at } = post;
-  let session = getContext<Writable<Session>>("session");
+  $: session = $page.data.session as Session;
 
   // likes
-  const email_hash = hash($session?.user.email ?? "");
+  const email_hash = hash(session?.user.email ?? "");
   const alreadyliked = likeUIDs.includes(email_hash);
   let currentlike = false;
   $: liked =
@@ -44,7 +42,7 @@
     return goto(path);
   }
   function likePost() {
-    if ($session) currentlike = !currentlike;
+    if (session) currentlike = !currentlike;
     else alert("You must be logged in to like this post");
   }
 </script>

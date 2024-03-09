@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { Card } from "$components";
   import type { Session } from "$lib/auth";
 
-  const session: Session = $page.data.session;
+  import { Card } from "$components";
+
+  $: session = $page.data.session as Session;
 </script>
 
 <Card

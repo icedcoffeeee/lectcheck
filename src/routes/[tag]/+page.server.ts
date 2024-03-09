@@ -1,4 +1,4 @@
-import { db, lects, posts } from "$lib/db.js";
+import { db, lects, posts, type PostInsert } from "$lib/db.js";
 import { error } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -26,10 +26,17 @@ export const actions = {
     const { tag } = params;
     const form = await request.formData();
 
-    const data: { [key: string]: string } = { lect_tag: tag };
-    ["content", "ratings", "authorUID", "class_code"].forEach((v) => {
-      data[v] = form.get(v)?.toString() ?? "";
-    });
+    console.log(Object.fromEntries(form));
+    const data: PostInsert = {
+      lect_tag: tag,
+      content: form.get("content") as string,
+      authorUID: parseInt(form.get("authorUID") as string),
+      class_code: form.get("class_code") as string,
+      ratings: (form.get("ratings") as string)
+        .split(",")
+        .map((v) => parseInt(v)),
+      created_at: new Date(),
+    };
 
     const post_schema = z.object({
       content: z.string(),
@@ -45,12 +52,19 @@ export const actions = {
     });
 
     const vals = post_schema.safeParse(data);
-    if (!vals.success) return { error: vals.error };
+    if (!vals.success)
+      return {
+        errors: vals.error.errors
+          .map((v) => v.message)
+          .filter((v, i, a) => a.indexOf(v) === i),
+        // filter redundant messages
+        vals: data,
+      };
 
     try {
       db.insert(posts).values(vals.data);
     } catch (e) {
-      return { error: e };
+      return { errors: [e], vals: data };
     }
   },
 };

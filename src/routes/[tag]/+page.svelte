@@ -1,5 +1,9 @@
 <script lang="ts">
+  // @ts-expect-error has no typees
+  import hash from "string-hash";
+
   import { Plus } from "lucide-svelte";
+  import { page } from "$app/stores";
   import type { ActionData, PageData } from "./$types";
 
   import Searchbar from "../searchbar.svelte";
@@ -13,6 +17,7 @@
 
   $: data = data;
   let { lectPosts, session } = data;
+  $: userUID = hash(session?.user.email) as number;
 
   let categories: number[] = [0, 0, 0, 0];
 
@@ -22,13 +27,10 @@
     });
   });
 
-  const posts = lectPosts
-    .filter((post) => !!post.content)
-    .sort(
-      (a, b) =>
-        parseInt(b.created_at.toISOString()) -
-        parseInt(a.created_at.toISOString()),
-    );
+  const posts = lectPosts.filter((post) => {
+    console.log(post.authorUID, userUID);
+    return post.authorUID === userUID || !!post.content;
+  });
 
   let addPost = false;
   function toggle() {
@@ -38,7 +40,6 @@
 </script>
 
 <Searchbar />
-
 <LectInfoCard />
 <LectRatingCard num={lectPosts.length} {categories} />
 
@@ -49,9 +50,9 @@
 
 <div class="flex flex-col gap-2">
   {#if addPost}
-    <NewPost {form} {toggle} />
+    <NewPost {form} {toggle} {userUID} />
   {/if}
   {#each posts as post}
-    <PostCard {post} />
+    <PostCard {post} {userUID} />
   {/each}
 </div>

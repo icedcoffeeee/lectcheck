@@ -1,31 +1,31 @@
 <script lang="ts">
-  //@ts-expect-error has no types
-  import hash from "string-hash";
-
-  import { goto } from "$app/navigation";
-  import { page } from "$app/stores";
-  import type { Session } from "$lib/auth";
-  import type { Post } from "$lib/db";
   import {
     AlertTriangle,
     Heart,
     MessageCircle,
     MoreHorizontal,
+    Trash2,
   } from "lucide-svelte";
   import colors from "tailwindcss/colors";
 
+  import { goto, invalidateAll } from "$app/navigation";
+  import { page } from "$app/stores";
+  import type { Session } from "$lib/auth";
+  import type { Post } from "$lib/db";
+
+  import { enhance } from "$app/forms";
   import { Card } from "$components";
   import LectRatingCard from "./lectratingcard.svelte";
 
   export let post: Post;
+  export let userUID: number;
   export let showratings = false;
 
   const { commentIDs, likeUIDs, created_at } = post;
   $: session = $page.data.session as Session;
 
   // likes
-  const email_hash = hash(session?.user.email ?? "");
-  const alreadyliked = likeUIDs.includes(email_hash);
+  const alreadyliked = likeUIDs.includes(userUID);
   let currentlike = false;
   $: liked =
     alreadyliked || currentlike
@@ -63,6 +63,28 @@
         <MessageCircle size={15} />
         {commentIDs.length}
       </button>
+
+      {#if post.authorUID === userUID}
+        <form
+          action="?/deletepost"
+          method="post"
+          use:enhance={function () {
+            const confirmed = confirm("Do you want to delete this post?");
+            return async function ({ update, result }) {
+              if (confirmed) {
+                await update();
+                await invalidateAll();
+              }
+              return result;
+            };
+          }}
+        >
+          <input type="hidden" name="postID" value={post.id} />
+          <button class="flex items-center gap-2">
+            <Trash2 color={colors.red[500]} size={15} />
+          </button>
+        </form>
+      {/if}
     </div>
 
     <div class="flex items-center gap-2">

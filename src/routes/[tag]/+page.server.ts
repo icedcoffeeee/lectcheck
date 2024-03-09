@@ -1,5 +1,6 @@
+import { invalidate } from "$app/navigation";
 import { db, lects, posts, type PostInsert } from "$lib/db.js";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
@@ -22,7 +23,7 @@ export async function load({ params }) {
 }
 
 export const actions = {
-  addpost: async function ({ request, params }) {
+  addpost: async function ({ request, params, url }) {
     const { tag } = params;
     const form = await request.formData();
 
@@ -36,6 +37,9 @@ export const actions = {
         .split(",")
         .map((v) => parseInt(v)),
       created_at: new Date(),
+      commentIDs: [],
+      likeUIDs: [],
+      dislikeUIDs: [],
     };
 
     const post_schema = z.object({
@@ -49,6 +53,9 @@ export const actions = {
         .string()
         .regex(/[A-Z]{3}[0-9]{4}/, "Class code must be valid."),
       created_at: z.date().default(new Date()),
+      commentIDs: z.array(z.number()),
+      likeUIDs: z.array(z.number()),
+      dislikeUIDs: z.array(z.number()),
     });
 
     const vals = post_schema.safeParse(data);
@@ -57,14 +64,26 @@ export const actions = {
         errors: vals.error.errors
           .map((v) => v.message)
           .filter((v, i, a) => a.indexOf(v) === i),
-        // filter redundant messages
-        vals: data,
       };
 
     try {
-      db.insert(posts).values(vals.data);
+      await db.insert(posts).values(vals.data);
     } catch (e) {
-      return { errors: [e], vals: data };
+      console.log(e);
+      return { errors: ["An error occured!", "Try again later."] };
     }
+
+    redirect(301, url.pathname);
+  },
+  deletepost: async function ({ request, url }) {
+    const postID = (await request.formData()).get("postID") as string;
+
+    try {
+      await db.delete(posts).where(eq(posts.id, parseInt(postID)));
+    } catch (e) {
+      console.log(e);
+      return { errors: ["An error occured!", "Try again later."] };
+    }
+    redirect(301, url.pathname);
   },
 };

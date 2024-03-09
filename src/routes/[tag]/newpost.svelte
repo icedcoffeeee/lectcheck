@@ -1,58 +1,41 @@
 <script lang="ts">
-  // @ts-expect-error no types
-  import hash from "string-hash";
-
-  import type { Session } from "$lib/auth";
+  import { enhance } from "$app/forms";
   import type { ActionData } from "./$types";
 
-  import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
+  import { invalidateAll } from "$app/navigation";
   import { Card, StarInput } from "$components";
-  import type { Lect } from "$lib/db";
 
   export let form: ActionData;
+  export let userUID: number;
   export let toggle = () => {};
 
-  const lect: Lect = $page.data.lect;
-  const session: Session = $page.data.session;
-
-  let ratings: number[];
+  let ratings = [0, 0, 0, 0];
 </script>
 
 <Card>
   <form
     method="post"
     action="?/addpost"
-    use:enhance
+    use:enhance={() => {
+      return async ({ update }) => {
+        await update();
+        await invalidateAll();
+      };
+    }}
     class="flex flex-col gap-2"
   >
     <StarInput bind:values={ratings} />
-    <input name="ratings" value={form?.vals.ratings ?? ratings} hidden />
+    <input name="ratings" bind:value={ratings} type="hidden" />
+    <input name="authorUID" value={userUID} type="hidden" />
 
-    <input
-      name="authorUID"
-      value={form?.vals.authorUID ?? hash(session?.user.email)}
-      hidden
-    />
-    <input
-      name="lect_tag"
-      value={form?.vals.lect_tag ?? lect.lect_tag}
-      hidden
-    />
-
-    <div class="flex gap-2">
+    <label class="flex gap-2">
       <span class="grow">Class Code</span>
-      <input
-        name="class_code"
-        placeholder="SIF2020"
-        value={form?.vals.class_code ?? ""}
-      />
-    </div>
+      <input name="class_code" placeholder="SIF2020" class="px-2" />
+    </label>
     <textarea
       name="content"
-      class="w-full"
       placeholder="Type your review... (optional)"
-      value={form?.vals.content ?? ""}
+      class="w-full px-2"
     />
 
     {#if form?.errors}

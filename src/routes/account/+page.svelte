@@ -5,20 +5,22 @@
   let loadingLogOut = false;
 </script>
 
-<form
-  method="post"
-  action="/login?/logout"
-  use:enhance={() => {
-    loadingLogOut = true;
-    return async ({ update }) => {
-      await update();
-      loadingLogOut = false;
-    };
-  }}
-  class="flex items-center"
->
-  <button>Log Out</button>
-  {#if loadingLogOut}
-    <Loader2 class="animate-spin" />
-  {/if}
-</form>
+<div class="w-full h-screen flex justify-center items-center">
+  <form
+    method="post"
+    action="/login?/logout"
+    use:enhance={() => {
+      loadingLogOut = true;
+      return async ({ update }) => {
+        await update();
+        loadingLogOut = false;
+      };
+    }}
+    class="flex items-center"
+  >
+    <button>Log Out</button>
+    {#if loadingLogOut}
+      <Loader2 class="animate-spin" />
+    {/if}
+  </form>
+</div>

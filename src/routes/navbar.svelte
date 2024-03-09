@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { getContext } from "svelte";
+  import { page } from "$app/stores";
   import { Card } from "$components";
-  import type { Writable } from "svelte/store";
   import type { Session } from "$lib/auth";
 
-  $: session = getContext<Writable<Session>>("session");
+  const session: Session = $page.data.session;
 </script>
 
 <Card
@@ -22,7 +21,7 @@
   <div class="flex gap-3">
     <a href="/">Home</a>
     <a href="/">About</a>
-    {#if !$session}
+    {#if !session}
       <a href="/login">Log In</a>
     {:else}
       <a href="/account">Account</a>

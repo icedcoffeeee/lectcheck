@@ -7,15 +7,12 @@
   import LectRatingCard from "./lectratingcard.svelte";
   import NewPost from "./newpost.svelte";
   import PostCard from "./postcard.svelte";
-  import { setContext } from "svelte";
-  import { writable } from "svelte/store";
 
   export let data: PageData;
   export let form: ActionData;
 
-  let { lect, lectPosts } = data;
-
-  $: setContext("lect", writable(lect));
+  $: data = data;
+  let { lectPosts, session } = data;
 
   let categories: number[] = [0, 0, 0, 0];
 
@@ -34,8 +31,9 @@
     );
 
   let addPost = false;
-  function cancel() {
-    addPost = !addPost;
+  function toggle() {
+    if (session) addPost = !addPost;
+    else alert("You must be logged in!");
   }
 </script>
 
@@ -46,12 +44,12 @@
 
 <h1 class="flex gap-2 items-center">
   Posts
-  <button on:click={cancel}><Plus size={18} /></button>
+  <button on:click={toggle}><Plus size={18} /></button>
 </h1>
 
 <div class="flex flex-col gap-2">
   {#if addPost}
-    <NewPost {form} {cancel} />
+    <NewPost {form} {toggle} />
   {/if}
   {#each posts as post}
     <PostCard {post} />

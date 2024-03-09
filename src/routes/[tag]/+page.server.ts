@@ -11,7 +11,7 @@ export async function load({ params }) {
     .where(eq(lects.lect_tag, tag))
     .limit(1);
 
-  if (!lect) error(404, "Not found");
+  if (!lect.length) error(404, "Not found");
 
   const lectPosts = await db
     .select()
@@ -47,11 +47,10 @@ export const actions = {
     const vals = post_schema.safeParse(data);
     if (!vals.success) return { error: vals.error };
 
-    console.log(vals.data);
-    // try {
-    //   db.insert(posts).values(vals.data);
-    // } catch (e) {
-    //   return { error: e };
-    // }
+    try {
+      db.insert(posts).values(vals.data);
+    } catch (e) {
+      return { error: e };
+    }
   },
 };

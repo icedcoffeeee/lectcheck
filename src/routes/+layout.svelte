@@ -2,15 +2,8 @@
   import "../app.css";
 
   import { onNavigate } from "$app/navigation";
-  import { setContext } from "svelte";
-  import { writable } from "svelte/store";
-  import type { LayoutData } from "./$types";
 
   import Navbar from "./navbar.svelte";
-
-  export let data: LayoutData;
-
-  $: setContext("session", writable(data.session));
 
   // view transitions api
   onNavigate((navigation) => {

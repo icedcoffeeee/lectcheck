@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-    import {Input} from "$components";
+  import { Input } from "$components";
   import type { ActionData } from "./$types";
 
   let loading = false;

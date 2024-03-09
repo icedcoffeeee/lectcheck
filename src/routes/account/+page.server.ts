@@ -6,9 +6,7 @@ export async function load() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) redirect(303, "/");
+  if (!session) redirect(301, "/");
 
   return { session };
 }
-
-export const actions = {};

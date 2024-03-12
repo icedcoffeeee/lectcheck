@@ -3,7 +3,6 @@
   import hash from "string-hash";
 
   import { Plus } from "lucide-svelte";
-  import { page } from "$app/stores";
   import type { ActionData, PageData } from "./$types";
 
   import Searchbar from "../searchbar.svelte";
@@ -15,9 +14,8 @@
   export let data: PageData;
   export let form: ActionData;
 
-  $: data = data;
-  let { lectPosts, session } = data;
-  $: userUID = hash(session?.user.email) as number;
+  let lectPosts = data.lectPosts ?? [];
+  let userUID = data.userUID;
 
   let categories: number[] = [0, 0, 0, 0];
 
@@ -28,13 +26,12 @@
   });
 
   const posts = lectPosts.filter((post) => {
-    console.log(post.authorUID, userUID);
     return post.authorUID === userUID || !!post.content;
   });
 
   let addPost = false;
   function toggle() {
-    if (session) addPost = !addPost;
+    if (userUID) addPost = !addPost;
     else alert("You must be logged in!");
   }
 </script>
@@ -49,9 +46,17 @@
 </h1>
 
 <div class="flex flex-col gap-2">
-  {#if addPost}
-    <NewPost {form} {toggle} {userUID} />
-  {/if}
+  <NewPost
+    data-expanded={addPost}
+    class={`max-h-0 py-0 -my-2
+      data-[expanded=true]:max-h-screen
+      data-[expanded=true]:py-2
+      data-[expanded=true]:my-0
+      transition-[max-height_padding] duration-700 overflow-clip`}
+    {form}
+    {toggle}
+    {userUID}
+  />
   {#each posts as post}
     <PostCard {post} {userUID} />
   {/each}

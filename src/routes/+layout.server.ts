@@ -1,3 +1,5 @@
+// @ts-expect-error has no typees
+import hash from "string-hash";
 import { supabase } from "$lib/auth.js";
 import type { Writable } from "svelte/store";
 
@@ -6,7 +8,7 @@ export async function load() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  return { session };
+  return { session, userUID: hash(session?.user.email ?? "") };
 }
 
 export type Session = Awaited<ReturnType<typeof load>>["session"];

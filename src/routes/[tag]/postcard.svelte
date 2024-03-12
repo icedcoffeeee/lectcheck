@@ -1,9 +1,9 @@
 <script lang="ts">
   import {
-    AlertTriangle,
+    AlertTriangleIcon,
     Heart,
+    Loader2,
     MessageCircle,
-    MoreHorizontal,
     Trash2,
   } from "lucide-svelte";
   import colors from "tailwindcss/colors";
@@ -33,7 +33,7 @@
       : { color: "white", fill: "transparent" };
 
   // options
-  let options = false;
+  let deleting = false;
 
   // activities
   function gotoPost() {
@@ -51,7 +51,9 @@
   style={`view-transition-name: post-${post.id}`}
   class="flex flex-col gap-2"
 >
-  <button class="text-left" on:click={gotoPost}>{post.content}</button>
+  <button class="text-left" on:click={gotoPost}
+    >{post.content.length ? post.content : "(No content)"}</button
+  >
   <div class="flex justify-between">
     <div class="flex items-center gap-4">
       <button on:click={likePost} class="flex items-center gap-2">
@@ -65,45 +67,30 @@
       </button>
 
       {#if post.authorUID === userUID}
-        <form
-          action="?/deletepost"
-          method="post"
-          use:enhance={function () {
-            const confirmed = confirm("Do you want to delete this post?");
-            return async function ({ update, result }) {
-              if (confirmed) {
-                await update();
-                await invalidateAll();
-              }
-              return result;
-            };
-          }}
-        >
+        <form action="?/deletepost" method="post">
           <input type="hidden" name="postID" value={post.id} />
-          <button class="flex items-center gap-2">
-            <Trash2 color={colors.red[500]} size={15} />
+          <button
+            class="flex items-center gap-2"
+            on:click={() => {
+              deleting = true;
+            }}
+          >
+            {#if deleting}
+              <Loader2 class="animate-spin" color={colors.red[500]} size={15} />
+            {:else}
+              <Trash2 color={colors.red[500]} size={15} />
+            {/if}
           </button>
         </form>
       {/if}
     </div>
 
-    <div class="flex items-center gap-2">
-      <button
-        on:click={() => {
-          options = !options;
-        }}
-      >
-        <MoreHorizontal size={15} />
-      </button>
-      <div
-        data-expand={options}
-        class="w-auto max-w-0 data-[expand=true]:max-w-min transition-[max-width] overflow-clip flex items-center gap-2"
-      >
+    <div class="flex flex-row items-center gap-2">
+      {#if showratings}
         <button>
-          <AlertTriangle size={15} />
+          <AlertTriangleIcon color={colors.red[500]} size={15} />
         </button>
-      </div>
-
+      {/if}
       <span class="opacity-50">
         {created_at.toLocaleDateString("en-US", {
           day: "2-digit",
@@ -113,6 +100,7 @@
       </span>
     </div>
   </div>
+
   {#if showratings}
     <LectRatingCard categories={post.ratings} />
   {/if}

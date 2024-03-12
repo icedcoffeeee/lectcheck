@@ -60,4 +60,4 @@ export type CommentInsert = typeof comments.$inferInsert;
 
 const url = process.env.DATABASE_URL ?? "";
 const client = postgres(url, { prepare: false });
-export const db = drizzle(client);
+export const db = drizzle(client, { schema: { lects, posts, comments } });

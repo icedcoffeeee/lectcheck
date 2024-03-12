@@ -4,7 +4,7 @@
   import Postcard from "../postcard.svelte";
 
   export let data: PageData;
-  const { post } = data;
+  const { post, userUID } = data;
 </script>
 
-<Postcard showratings {post} />
+<Postcard showratings {post} {userUID} />

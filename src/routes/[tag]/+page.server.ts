@@ -1,25 +1,22 @@
-import { invalidate } from "$app/navigation";
 import { db, lects, posts, type PostInsert } from "$lib/db.js";
 import { error, redirect } from "@sveltejs/kit";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { z } from "zod";
 
 export async function load({ params }) {
   const { tag } = params;
-  const lect = await db
-    .select()
-    .from(lects)
-    .where(eq(lects.lect_tag, tag))
-    .limit(1);
+  const lect = await db.query.lects.findFirst({
+    where: eq(lects.lect_tag, tag),
+  });
 
-  if (!lect.length) error(404, "Not found");
+  if (!lect) error(404, "Not found");
 
-  const lectPosts = await db
-    .select()
-    .from(posts)
-    .where(eq(posts.lect_tag, tag));
+  const lectPosts = await db.query.posts.findMany({
+    where: eq(posts.lect_tag, tag),
+    orderBy: desc(posts.created_at),
+  });
 
-  return { lect: lect[0], lectPosts };
+  return { lect, lectPosts };
 }
 
 export const actions = {
@@ -72,8 +69,6 @@ export const actions = {
       console.log(e);
       return { errors: ["An error occured!", "Try again later."] };
     }
-
-    redirect(301, url.pathname);
   },
   deletepost: async function ({ request, url }) {
     const postID = (await request.formData()).get("postID") as string;
@@ -84,6 +79,5 @@ export const actions = {
       console.log(e);
       return { errors: ["An error occured!", "Try again later."] };
     }
-    redirect(301, url.pathname);
   },
 };

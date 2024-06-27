@@ -64,7 +64,7 @@
   flex-col gap-2 justify-between shadow-md {additionalClass}"
 >
 	<p class="line-clamp-3 {!content ? 'opacity-80' : ''}">{content ? content : 'No Comment'}</p>
-	<div class="flex justify-between">
+	<div class="w-full flex justify-between">
 		<span class="flex items-center gap-1">
 			<div class="w-3 h-3 mask mask-star-2 bg-yellow-500" />
 			{Math.round(avgRating * 100) / 100} / 5

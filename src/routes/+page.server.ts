@@ -25,7 +25,7 @@ export const actions: Actions = {
 		let lectTag = data.get('lectTag') as string;
 		if (lectTag.includes('@')) lectTag = lectTag.split('@')[0];
 		if (lectTag.includes('.')) lectTag = lectTag.replaceAll('.', '-');
-		redirect(303, lectTag);
+		redirect(303, lectTag.toLowerCase());
 	},
 	gotoLogin: () => {
 		redirect(303, '/login/google');

@@ -50,13 +50,13 @@
 		<input type="hidden" name="lectTag" value={$page.params.lectTag} />
 		<label class="flex justify-between">
 			<span class="font-bold">Class Code</span>
-			<input name="classCode" class="w-32 border-2" />
+			<input name="classCode" class="w-32 border-2 p-1" />
 		</label>
 		<label class="font-bold" for="content">Comment</label>
 		<textarea
 			name="content"
 			placeholder="Add a comment (optional, max 200)"
-			class="border-2 mb-4"
+			class="border-2 mb-4 p-1"
 		/>
 		<StarRating name="teaching" />
 		<StarRating name="assessment" />

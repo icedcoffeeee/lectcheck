@@ -6,14 +6,15 @@ import { type Actions, error, fail } from '@sveltejs/kit';
 import type { PageServerLoadEvent } from './$types';
 
 export async function load({ params: { lectTag }, fetch }: PageServerLoadEvent) {
+	const tag = lectTag.toLowerCase();
 	let lect = await db.query.lects.findFirst({
-		where: (lect, { eq }) => eq(lect.lectTag, lectTag)
+		where: (lect, { eq }) => eq(lect.lectTag, tag)
 	});
-	if (!lect) lect = await newLect(lectTag, fetch);
+	if (!lect) lect = await newLect(tag, fetch);
 	if (!lect) error(404, 'Lecturer Not Found.');
 
 	const allPosts = await db.query.posts.findMany({
-		where: eq(posts.lectTag, lectTag),
+		where: eq(posts.lectTag, tag),
 		orderBy: [
 			desc(sql`coalesce(array_length(${posts.likeIds}, 1), 0)`),
 			asc(sql`coalesce(array_length(${posts.dislikeIds}, 1), 0)`),
@@ -114,6 +115,15 @@ export const actions: Actions = {
 		const { success, data, error } = postSchema.safeParse(unparsedData);
 		if (!success) return fail(422, { errors: error.errors.map((v) => v.message) });
 
+		const dbData = await db.query.posts.findFirst({
+			where: and(
+				eq(posts.lectTag, data.lectTag),
+				eq(posts.authorId, user.id),
+				eq(posts.classCode, data.classCode)
+			)
+		});
+		if (dbData)
+			return fail(422, { errors: ["You've already reviewed this class for this lecturer"] });
 		await db.insert(posts).values(data);
 	}
 };

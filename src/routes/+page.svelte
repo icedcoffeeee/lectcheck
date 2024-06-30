@@ -14,7 +14,7 @@
 	<title>LectCheck</title>
 </svelte:head>
 
-<div class="w-full min-h-[100lvh] flex flex-col justify-center items-center">
+<div class="w-full min-h-[95lvh] flex flex-col justify-center items-center">
 	<div class="w-screen mb-20 horizon-mask overflow-x-hidden">
 		<div class="marquee flex gap-2" style="animation-direction: reverse;">
 			{#each posts1 as post}
@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-<Footer additionalClass="absolute bottom-2 left-0" />
+<Footer />
 
 <style lang="postcss">
 	h1 {

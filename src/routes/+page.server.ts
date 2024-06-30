@@ -1,22 +1,24 @@
-import { type Post, db } from '$lib';
+import { desc, ne } from 'drizzle-orm';
+import { type Post, db, posts } from '$lib';
 import { type Actions, redirect } from '@sveltejs/kit';
 import type { PageServerLoadEvent } from './$types';
 
 export async function load({ cookies }: PageServerLoadEvent) {
 	const cached_posts = cookies.get('posts');
-	let posts: Post[];
-	if (cached_posts) posts = JSON.parse(cached_posts);
+	let postsQuery: Post[];
+	if (cached_posts) postsQuery = JSON.parse(cached_posts);
 	else {
-		posts = await db.query.posts.findMany({
-			limit: 6,
-			where: ({ content }, { ne }) => ne(content, '')
+		postsQuery = await db.query.posts.findMany({
+			limit: 8,
+			where: ne(posts.content, ''),
+			orderBy: desc(posts.createdAt)
 		});
-		cookies.set('posts', JSON.stringify(posts), {
+		cookies.set('posts', JSON.stringify(postsQuery), {
 			path: '/',
 			maxAge: 60 * 60 * 24
 		});
 	}
-	return { posts };
+	return { posts: postsQuery };
 }
 
 export const actions: Actions = {

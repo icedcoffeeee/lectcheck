@@ -6,6 +6,7 @@
 
 	export let additionalClass = '';
 	export let additionalInputClass = '';
+	export let moreInfo = false;
 
 	const user: User | null = $page.data.user;
 	let searchPressed = false;
@@ -13,6 +14,15 @@
 </script>
 
 <form action="/?/gotoTag" method="post" class="flex gap-2 {additionalClass}">
+	{#if moreInfo}
+		<a
+			href="/about"
+			class="px-1 h-6 w-6 flex justify-center items-center text-white bg-primary rounded tooltip tooltip-bottom"
+			data-tip="Help"
+		>
+			?
+		</a>
+	{/if}
 	<input
 		name="lectTag"
 		placeholder="lecturer tag or email"

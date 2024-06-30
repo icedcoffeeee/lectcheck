@@ -36,9 +36,13 @@
 		"@lucia-auth/adapter-drizzle": "^1.0.7",
 		"@types/jsdom": "^21.1.7",
 		"arctic": "^1.9.1",
+		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.31.2",
 		"jsdom": "^24.1.0",
 		"postgres": "^3.4.4",
+		"simplex-noise": "^4.0.1",
+		"svelte-motion": "^0.12.2",
+		"tailwind-merge": "^2.3.0",
 		"zod": "^3.23.8"
 	},
 	"optionalDependencies": {

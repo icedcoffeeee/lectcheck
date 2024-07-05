@@ -11,7 +11,7 @@
 		<p class={emojiClass}>😵‍💫😵‍💫😵‍💫</p>
 		<p class={errorClass}>Oops... We couldn't find them. Check their UMExpert page.</p>
 	</div>
-{:else if $page.status === 404}
+{:else if $page.status === 500}
 	<div class={divClass}>
 		<p class={emojiClass}>🤔🤔🤔</p>
 		<p class={errorClass}>Hmmm... Something went wrong. Check back later?</p>

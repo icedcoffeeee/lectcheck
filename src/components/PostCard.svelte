@@ -60,8 +60,8 @@
 
 <button
 	on:click={toggleModal}
-	class="min-w-56 p-2 rounded bg-white text-sm text-left flex
-  flex-col gap-2 justify-between shadow-md {additionalClass}"
+	class="min-w-56 p-2 rounded bg-white/60 text-sm text-left flex
+  flex-col gap-2 justify-between shadow-md backdrop-blur {additionalClass}"
 >
 	<p class="line-clamp-3 {!content ? 'opacity-80' : ''}">{content ? content : 'No Comment'}</p>
 	<div class="w-full flex justify-between">

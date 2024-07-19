@@ -41,10 +41,6 @@
 		@apply font-bold bg-clip-text bg-gradient-to-tr from-sky-500 to-violet-500 text-3xl lg:text-5xl text-transparent drop-shadow-md;
 	}
 
-	.horizon-mask {
-		mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-	}
-
 	.marquee {
 		animation-name: marquee;
 		animation-duration: 40s;

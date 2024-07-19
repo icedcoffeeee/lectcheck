@@ -7,10 +7,10 @@
 	onNavigate(function (nav) {
 		///@ts-ignore
 		if (!document.startViewTransition) return;
-		return new Promise((res) =>
+		return new Promise((resolve) =>
 			///@ts-ignore
 			document.startViewTransition(async function () {
-				res();
+				resolve();
 				await nav.complete;
 			})
 		);

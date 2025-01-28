@@ -13,6 +13,14 @@
 	--color-base-100: #dbeafe;
 }
 
+@theme {
+	--color-primary: #1d4ed8e;
+	--color-secondary: #93c5fde;
+	--color-accent: #6d28d9e;
+	--color-neutral: #18181be;
+	--color-base-100: #dbeafe;
+}
+
 .debug {
 	border-width: var(--border);
 	border-color: var(--border-red-500);

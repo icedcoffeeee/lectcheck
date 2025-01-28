@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { Post, User } from '$lib';
 	import { timeSince } from '$lib/utils/time';
 
@@ -10,18 +10,22 @@
 	import Like from './icons/Like.svelte';
 	import Delete from './icons/Delete.svelte';
 
-	export let post: Post;
-	export let showTag = false;
-	export let additionalClass = '';
+	interface Props {
+		post: Post;
+		showTag?: boolean;
+		additionalClass?: string;
+	}
 
-	const user: User | null = $page.data.user;
+	let { post, showTag = false, additionalClass = '' }: Props = $props();
+
+	const user: User | null = page.data.user;
 	const { ratings, likeIds, dislikeIds, content } = post;
 	const avgRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
-	let totalLikes = likeIds.length - dislikeIds.length;
+	let totalLikes = $state(likeIds.length - dislikeIds.length);
 
-	let liked = 0;
-	let likeError = false;
-	let dislikeError = false;
+	let liked = $state(0);
+	let likeError = $state(false);
+	let dislikeError = $state(false);
 
 	if (user) {
 		if (likeIds.includes(user.id)) {
@@ -59,14 +63,14 @@
 </script>
 
 <button
-	on:click={toggleModal}
-	class="min-w-56 p-2 rounded bg-white text-sm text-left flex
-  flex-col gap-2 justify-between shadow-md {additionalClass}"
+	onclick={toggleModal}
+	class="min-w-56 p-2 rounded bg-white/60 text-sm text-left flex
+  flex-col gap-2 justify-between shadow-md backdrop-blur {additionalClass}"
 >
 	<p class="line-clamp-3 {!content ? 'opacity-80' : ''}">{content ? content : 'No Comment'}</p>
 	<div class="w-full flex justify-between">
 		<span class="flex items-center gap-1">
-			<div class="w-3 h-3 mask mask-star-2 bg-yellow-500" />
+			<div class="w-3 h-3 mask mask-star-2 bg-yellow-500"></div>
 			{Math.round(avgRating * 100) / 100} / 5
 		</span>
 		{#if showTag}
@@ -79,13 +83,13 @@
 
 <dialog id={post.id.toString()} class="modal p-4">
 	<div
-		class="modal-box w-full max-w-96 p-2 rounded bg-white text-sm flex flex-col gap-4 justify-between"
+		class="modal-box w-full max-w-96 p-2 rounded-sm bg-white text-sm flex flex-col gap-4 justify-between"
 	>
 		<p class={!content ? 'opacity-80' : ''}>{content ? content : 'No Comment'}</p>
 		<RatingBoard ratings={post.ratings} />
 		<div class="flex justify-between">
 			<div class="flex gap-4">
-				<span class="bg-accent text-white rounded px-2">{post.classCode}</span>
+				<span class="bg-accent text-white rounded-sm px-2">{post.classCode}</span>
 				<form
 					use:enhance={function ({ action }) {
 						if (action.search === '?/like') return like();
@@ -117,7 +121,7 @@
 		</div>
 	</div>
 	<div
-		class="absolute bottom-2 right-2 rounded bg-red-500 text-white p-3 flex gap-2 items-center opacity-0 transition-[opacity]"
+		class="absolute bottom-2 right-2 rounded-sm bg-red-500 text-white p-3 flex gap-2 items-center opacity-0 transition-[opacity]"
 		class:opacity-100={likeError || dislikeError}
 	>
 		<Alert />

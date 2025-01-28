@@ -1,5 +1,13 @@
+<script lang="ts">
+	interface Props {
+		[key: string]: any
+	}
+
+	let { ...rest }: Props = $props();
+</script>
+
 <svg
-	{...$$restProps}
+	{...rest}
 	xmlns="http://www.w3.org/2000/svg"
 	width="1em"
 	height="1em"

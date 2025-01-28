@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let additionalClass = '';
+	interface Props {
+		additionalClass?: string;
+	}
+
+	let { additionalClass = '' }: Props = $props();
 </script>
 
 <footer

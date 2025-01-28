@@ -13,11 +13,7 @@ export const lucia = new Lucia(adapter, {
 			secure: !dev
 		}
 	},
-	getUserAttributes: ({ id, imageSrc, email }: User) => ({
-		id,
-		imageSrc,
-		email
-	})
+	getUserAttributes: (user: User) => user
 });
 
 export const google = new Google(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI);

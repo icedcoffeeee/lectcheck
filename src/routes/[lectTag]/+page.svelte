@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { User } from '$lib';
 	import type { PageData } from './$types';
 
@@ -8,28 +8,32 @@
 	import Alert from '$components/icons/Alert.svelte';
 	import AddPostCard from '$components/AddPostCard.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { lect, posts } = data;
-	const user: User | null = $page.data.user;
+	const user: User | null = page.data.user;
 
 	const postsWithContent = posts.filter(
 		(post) => post.content?.length || post.authorId === user?.id
 	);
 
 	const numOfPosts = posts.length;
-	const avgOfRatings = [0, 0, 0, 0];
+	const avgOfRatings = $state([0, 0, 0, 0]);
 	posts.forEach((post) => {
 		post.ratings.forEach(function (rating, i) {
 			avgOfRatings[i] += rating / numOfPosts;
 		});
 	});
 
-	let addPostError = false;
+	let addPostError = $state(false);
 </script>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between md:gap-2">
 	<div class="flex gap-4 mb-4">
-		<img src={lect.imgSrc} alt={lect.name} class="h-[5.5rem] md:h-[6.5rem] rounded" />
+		<img src={lect.imgSrc} alt={lect.name} class="h-[5.5rem] md:h-[6.5rem] rounded-sm" />
 		<div class="flex flex-col">
 			<h1 class=" font-bold md:text-2xl text-primary">
 				{lect.name}
@@ -53,7 +57,7 @@
 </div>
 
 <div
-	class="absolute bottom-2 right-2 rounded bg-red-500 text-white p-3 flex gap-2 items-center opacity-0 transition-[opacity]"
+	class="absolute bottom-2 right-2 rounded-sm bg-red-500 text-white p-3 flex gap-2 items-center opacity-0 transition-[opacity]"
 	class:opacity-100={addPostError}
 >
 	<Alert />

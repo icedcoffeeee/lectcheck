@@ -1,7 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin 'daisyui/theme' {
+	name: 'light';
+	default: true;
+	prefersdark: true;
+	color-scheme: light;
+
+	--color-primary: #1d4ed8e;
+	--color-secondary: #93c5fde;
+	--color-accent: #6d28d9e;
+	--color-neutral: #18181be;
+	--color-base-100: #dbeafe;
+}
 
 .debug {
-	@apply border border-red-500;
+	border-width: var(--border);
+	border-color: var(--border-red-500);
 }

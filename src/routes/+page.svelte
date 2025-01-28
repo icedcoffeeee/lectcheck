@@ -4,7 +4,11 @@
 	import Footer from '$components/Footer.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { posts } = data;
 	const posts1 = Array(9).fill(posts.slice(undefined, 4)).flat();
 	const posts2 = Array(9).fill(posts.slice(4, undefined)).flat();
@@ -36,13 +40,10 @@
 
 <Footer />
 
-<style lang="postcss">
+<style>
+	@reference "../app.css"
 	h1 {
-		@apply font-bold bg-clip-text bg-gradient-to-tr from-sky-500 to-violet-500 text-3xl lg:text-5xl text-transparent drop-shadow-md;
-	}
-
-	.horizon-mask {
-		mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+		@apply font-bold bg-clip-text bg-linear-to-tr from-sky-500 to-violet-500 text-3xl lg:text-5xl text-transparent drop-shadow-md;
 	}
 
 	.marquee {

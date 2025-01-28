@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let liked = false;
+	interface Props {
+		liked?: boolean;
+	}
+
+	let { liked = false }: Props = $props();
 </script>
 
 {#if liked}

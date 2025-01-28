@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: $$props is used together with named props in a way that cannot be automatically migrated. -->
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
 	import { createNoise3D } from 'simplex-noise';
@@ -79,7 +80,7 @@
 		class="absolute inset-0 z-0"
 		style="--left:{canvas ? canvas.getBoundingClientRect().left : ''}"
 		bind:this={canvasRef}
-	/>
+	></canvas>
 	<div class={cn('relative z-10', className)} {...$$props}>
 		<slot />
 	</div>

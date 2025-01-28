@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { User } from '$lib';
 	import type { PageData } from './$types';
 
@@ -8,23 +8,27 @@
 	import Alert from '$components/icons/Alert.svelte';
 	import AddPostCard from '$components/AddPostCard.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { lect, posts } = data;
-	const user: User | null = $page.data.user;
+	const user: User | null = page.data.user;
 
 	const postsWithContent = posts.filter(
 		(post) => post.content?.length || post.authorId === user?.id
 	);
 
 	const numOfPosts = posts.length;
-	const avgOfRatings = [0, 0, 0, 0];
+	const avgOfRatings = $state([0, 0, 0, 0]);
 	posts.forEach((post) => {
 		post.ratings.forEach(function (rating, i) {
 			avgOfRatings[i] += rating / numOfPosts;
 		});
 	});
 
-	let addPostError = false;
+	let addPostError = $state(false);
 </script>
 
 <div class="flex flex-col md:flex-row md:items-center md:justify-between md:gap-2">

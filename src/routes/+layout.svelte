@@ -3,6 +3,11 @@
 	import colors from 'tailwindcss/colors';
 	import { injectSpeedInsights } from '@vercel/speed-insights';
 	import { onNavigate } from '$app/navigation';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	injectSpeedInsights();
 	onNavigate(function (nav) {
@@ -31,5 +36,5 @@
       {colors.blue[300]}aa 10%,
       rgba(0, 0, 0, 0) 30%
     );"
-/>
-<slot />
+></div>
+{@render children?.()}

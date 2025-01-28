@@ -4,7 +4,11 @@
 	import Footer from '$components/Footer.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { posts } = data;
 	const posts1 = Array(9).fill(posts.slice(undefined, 4)).flat();
 	const posts2 = Array(9).fill(posts.slice(4, undefined)).flat();

@@ -1,14 +1,18 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import Navbar from '$components/Navbar.svelte';
 	import PostCard from '$components/PostCard.svelte';
 	import PostCardSkeleton from '$components/PostCardSkeleton.svelte';
 	import type { User } from '$lib';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	const user: User = $page.data.user;
+	let { data }: Props = $props();
+
+	const user: User = page.data.user;
 	const { postsPromise, likedPostsPromise } = data;
 	const numPostsPromise = postsPromise.then((posts) => posts.length);
 	const numLikesPromise = postsPromise.then((posts) =>
@@ -16,11 +20,11 @@
 	);
 	const numLikedPromise = likedPostsPromise.then((likedPosts) => likedPosts.length);
 
-	let postsScreen = true;
+	let postsScreen = $state(true);
 	const pressedTabClass = 'bg-red-500 text-white';
 	const unpressedTabClass = 'border border-red-500 bg-white text-red-500';
 
-	let signingOut = false;
+	let signingOut = $state(false);
 </script>
 
 <svelte:head>
@@ -33,11 +37,11 @@
 	<div class="md:w-3/4">
 		<div class="h-14 flex gap-2 items-center">
 			<button
-				on:click={() => (postsScreen = true)}
+				onclick={() => (postsScreen = true)}
 				class="h-fit px-2 rounded {postsScreen ? pressedTabClass : unpressedTabClass}">Posts</button
 			>
 			<button
-				on:click={() => (postsScreen = false)}
+				onclick={() => (postsScreen = false)}
 				class="h-fit px-2 rounded {!postsScreen ? pressedTabClass : unpressedTabClass}"
 			>
 				Liked
@@ -100,7 +104,7 @@
 			</div>
 			<form method="post">
 				<button
-					on:click={() => (signingOut = true)}
+					onclick={() => (signingOut = true)}
 					class="my-2 px-2 py-1 rounded bg-accent text-white"
 					class:opacity-80={signingOut}
 				>

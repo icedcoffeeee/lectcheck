@@ -1,14 +1,13 @@
 <script lang="ts">
 	import '../app.css';
 	import colors from 'tailwindcss/colors';
-	import { injectSpeedInsights } from '@vercel/speed-insights';
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import { onNavigate } from '$app/navigation';
 	interface Props {
 		children?: import('svelte').Snippet;
 	}
 
 	let { children }: Props = $props();
-
 	injectSpeedInsights();
 	onNavigate(function (nav) {
 		///@ts-ignore

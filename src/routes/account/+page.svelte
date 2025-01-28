@@ -38,11 +38,11 @@
 		<div class="h-14 flex gap-2 items-center">
 			<button
 				onclick={() => (postsScreen = true)}
-				class="h-fit px-2 rounded {postsScreen ? pressedTabClass : unpressedTabClass}">Posts</button
+				class="h-fit px-2 rounded-sm {postsScreen ? pressedTabClass : unpressedTabClass}">Posts</button
 			>
 			<button
 				onclick={() => (postsScreen = false)}
-				class="h-fit px-2 rounded {!postsScreen ? pressedTabClass : unpressedTabClass}"
+				class="h-fit px-2 rounded-sm {!postsScreen ? pressedTabClass : unpressedTabClass}"
 			>
 				Liked
 			</button>
@@ -69,7 +69,7 @@
 	</div>
 
 	<div class="md:w-1/4">
-		<div class="flex flex-col gap-3 items-center bg-white rounded shadow-md p-2 mt-14 pt-12">
+		<div class="flex flex-col gap-3 items-center bg-white rounded-sm shadow-md p-2 mt-14 pt-12">
 			<img
 				src={user.imageSrc}
 				alt={user.email}
@@ -79,7 +79,7 @@
 			<div class="w-full flex gap-1">
 				<div class="w-full flex flex-col items-center">
 					{#await numPostsPromise}
-						<span class="w-4 h-4 skeleton rounded"></span>
+						<span class="w-4 h-4 skeleton rounded-sm"></span>
 					{:then numPosts}
 						<span>{numPosts}</span>
 					{/await}
@@ -87,7 +87,7 @@
 				</div>
 				<div class="w-full flex flex-col items-center">
 					{#await numLikesPromise}
-						<span class="w-4 h-4 skeleton rounded"></span>
+						<span class="w-4 h-4 skeleton rounded-sm"></span>
 					{:then numLikes}
 						<span>{numLikes}</span>
 					{/await}
@@ -95,7 +95,7 @@
 				</div>
 				<div class="w-full flex flex-col items-center">
 					{#await numLikedPromise}
-						<span class="w-4 h-4 skeleton rounded"></span>
+						<span class="w-4 h-4 skeleton rounded-sm"></span>
 					{:then numLiked}
 						<span>{numLiked}</span>
 					{/await}
@@ -105,7 +105,7 @@
 			<form method="post">
 				<button
 					onclick={() => (signingOut = true)}
-					class="my-2 px-2 py-1 rounded bg-accent text-white"
+					class="my-2 px-2 py-1 rounded-sm bg-accent text-white"
 					class:opacity-80={signingOut}
 				>
 					Sign Out

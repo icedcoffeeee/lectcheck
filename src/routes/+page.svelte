@@ -40,9 +40,10 @@
 
 <Footer />
 
-<style lang="postcss">
+<style>
+	@reference "../app.css"
 	h1 {
-		@apply font-bold bg-clip-text bg-gradient-to-tr from-sky-500 to-violet-500 text-3xl lg:text-5xl text-transparent drop-shadow-md;
+		@apply font-bold bg-clip-text bg-linear-to-tr from-sky-500 to-violet-500 text-3xl lg:text-5xl text-transparent drop-shadow-md;
 	}
 
 	.marquee {

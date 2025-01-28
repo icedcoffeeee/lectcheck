@@ -21,7 +21,7 @@
 	{#if moreInfo}
 		<a
 			href="/about"
-			class="px-1 h-6 w-6 flex justify-center items-center text-white bg-primary rounded tooltip tooltip-bottom"
+			class="px-1 h-6 w-6 flex justify-center items-center text-white bg-primary rounded-sm tooltip tooltip-bottom"
 			data-tip="Help"
 		>
 			?
@@ -30,11 +30,11 @@
 	<input
 		name="lectTag"
 		placeholder="lecturer tag or email"
-		class="bg-secondary rounded px-2 placeholder-primary/70 {additionalInputClass}"
+		class="bg-secondary rounded-sm px-2 placeholder-primary/70 {additionalInputClass}"
 	/>
 	<button
 		onclick={() => (searchPressed = true)}
-		class="px-1 flex items-center text-white bg-primary rounded tooltip tooltip-bottom"
+		class="px-1 flex items-center text-white bg-primary rounded-sm tooltip tooltip-bottom"
 		data-tip="Search"
 	>
 		<label class="swap swap-rotate {searchPressed ? 'swap-active' : ''}">
@@ -46,7 +46,7 @@
 	{#if user}
 		<button
 			formaction="/?/gotoAccount"
-			class="px-0.5 flex items-center text-white bg-accent rounded tooltip tooltip-bottom"
+			class="px-0.5 flex items-center text-white bg-accent rounded-sm tooltip tooltip-bottom"
 			data-tip="Account"
 		>
 			<label class="swap swap-rotate {accountPressed ? 'swap-active' : ''}">
@@ -58,7 +58,7 @@
 	{:else}
 		<button
 			formaction="/?/gotoLogin"
-			class="px-1 flex items-center text-white bg-accent rounded tooltip tooltip-bottom"
+			class="px-1 flex items-center text-white bg-accent rounded-sm tooltip tooltip-bottom"
 			data-tip="Log In"
 		>
 			<label class="swap swap-rotate {accountPressed ? 'swap-active' : ''}">

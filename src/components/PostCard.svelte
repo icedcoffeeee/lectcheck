@@ -83,13 +83,13 @@
 
 <dialog id={post.id.toString()} class="modal p-4">
 	<div
-		class="modal-box w-full max-w-96 p-2 rounded bg-white text-sm flex flex-col gap-4 justify-between"
+		class="modal-box w-full max-w-96 p-2 rounded-sm bg-white text-sm flex flex-col gap-4 justify-between"
 	>
 		<p class={!content ? 'opacity-80' : ''}>{content ? content : 'No Comment'}</p>
 		<RatingBoard ratings={post.ratings} />
 		<div class="flex justify-between">
 			<div class="flex gap-4">
-				<span class="bg-accent text-white rounded px-2">{post.classCode}</span>
+				<span class="bg-accent text-white rounded-sm px-2">{post.classCode}</span>
 				<form
 					use:enhance={function ({ action }) {
 						if (action.search === '?/like') return like();
@@ -121,7 +121,7 @@
 		</div>
 	</div>
 	<div
-		class="absolute bottom-2 right-2 rounded bg-red-500 text-white p-3 flex gap-2 items-center opacity-0 transition-[opacity]"
+		class="absolute bottom-2 right-2 rounded-sm bg-red-500 text-white p-3 flex gap-2 items-center opacity-0 transition-[opacity]"
 		class:opacity-100={likeError || dislikeError}
 	>
 		<Alert />

@@ -27,7 +27,7 @@
 
 <button
 	onclick={toggleModal}
-	class="min-w-56 h-full min-h-16 border border-dashed border-primary rounded flex justify-center items-center"
+	class="min-w-56 h-full min-h-16 border border-dashed border-primary rounded-sm flex justify-center items-center"
 >
 	<Add class="text-2xl text-primary" />
 </button>
@@ -48,7 +48,7 @@
 				loading = false;
 			};
 		}}
-		class="modal-box w-full max-w-96 p-4 rounded bg-white text-sm flex flex-col gap-2 justify-between"
+		class="modal-box w-full max-w-96 p-4 rounded-sm bg-white text-sm flex flex-col gap-2 justify-between"
 	>
 		<h3 class="text-lg text-primary">Add Review</h3>
 		<input type="hidden" name="lectTag" value={page.params.lectTag} />
@@ -69,7 +69,7 @@
 		<button
 			disabled={loading}
 			class:opacity-80={loading}
-			class="bg-accent text-white rounded py-1 mt-3"
+			class="bg-accent text-white rounded-sm py-1 mt-3"
 		>
 			Submit
 		</button>

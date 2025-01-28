@@ -6,7 +6,7 @@
 <nav class="mt-2 mb-4 flex justify-between gap-2">
 	<a
 		href="/"
-		class="px-0.5 bg-primary rounded flex items-center aspect-square"
+		class="px-0.5 bg-primary rounded-sm flex items-center aspect-square"
 		onclick={() => (homePressed = true)}
 	>
 		<label class="swap swap-rotate {homePressed ? 'swap-active' : ''}">

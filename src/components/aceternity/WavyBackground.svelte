@@ -31,13 +31,13 @@
 		w = ctx.canvas.width = window.innerWidth;
 		h = ctx.canvas.height = window.innerHeight;
 
-		ctx.filter = `blur(${blur}px)`;
+		ctx.filter = `blur(${blur-sm}px)`;
 		nt = 0;
 
 		window.onresize = function () {
 			w = ctx.canvas.width = window.innerWidth;
 			h = ctx.canvas.height = window.innerHeight;
-			ctx.filter = `blur(${blur}px)`;
+			ctx.filter = `blur(${blur-sm}px)`;
 		};
 		render();
 	}

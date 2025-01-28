@@ -480,7 +480,7 @@
 </section>
 
 <style>
-	@reference "../app.css"
+	@reference "../../app.css"
 	section {
 		@apply flex flex-col gap-4 pb-3;
 	}

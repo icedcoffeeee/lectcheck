@@ -1,8 +1,8 @@
-import { auth } from '$lib/auth';
-import type { ServerLoadEvent } from '@sveltejs/kit';
+import { auth } from "$lib/auth";
+import type { ServerLoadEvent } from "@sveltejs/kit";
 
 export async function load({ request: { headers } }: ServerLoadEvent) {
-	const data = await auth.api.getSession({ headers });
-	if (data) return { user: data.user };
-	return {};
+  const data = await auth.api.getSession({ headers });
+  if (data) return { user: data.user };
+  return {};
 }

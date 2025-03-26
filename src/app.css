@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Karla", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --color-primary: var(--color-blue-700);
+}
+
+@layer utilities {
+  h1 {
+    @apply font-mono text-2xl font-bold;
+  }
+
+  .debug {
+    @apply border border-red-500;
+  }
+}

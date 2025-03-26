@@ -22,7 +22,9 @@
     "@sveltejs/kit": "^2.16.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@tailwindcss/vite": "^4.0.0",
+    "daisyui": "^5.0.9",
     "drizzle-kit": "^0.30.2",
+    "lucide-svelte": "^0.483.0",
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
@@ -33,6 +35,8 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/karla": "^5.2.5",
     "better-auth": "^1.2.4",
     "drizzle-orm": "^0.40.0",
     "postgres": "^3.4.5"

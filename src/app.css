@@ -20,7 +20,7 @@
   --color-white: #fefefe;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: var(--color-indigo-700);
+  --color-primary: var(--color-blue-700);
 }
 
 @layer utilities {
@@ -29,7 +29,7 @@
   }
 
   * {
-    @apply text-foreground font-mono transition-all;
+    @apply text-foreground transition-all;
   }
 
   h1 {

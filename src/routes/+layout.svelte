@@ -14,7 +14,7 @@
 </svelte:head>
 
 <nav
-  class="sticky top-0 z-10 flex w-full justify-between p-5 text-sm font-bold backdrop-blur-md"
+  class="sticky top-0 z-10 flex w-full justify-between p-5 font-mono text-sm font-bold backdrop-blur-md"
 >
   <a href="/">LectCheck</a>
   <div class="flex gap-5">

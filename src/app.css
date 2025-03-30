@@ -36,6 +36,9 @@
     @apply text-primary font-mono text-2xl font-bold;
   }
 
+  input {
+    @apply border-foreground border-y px-2;
+  }
   button {
     @apply cursor-pointer;
   }

@@ -35,7 +35,7 @@
           {/if}
         </button>
       </p>
-      <input name="tag" placeholder="e.g. hamdi" class="border-foreground border-y px-2 py-1" />
+      <input name="tag" placeholder="e.g. hamdi" class="py-1" />
       <a class="self-end text-xs underline" href="faq#tag">what's a tag?</a>
     </form>
   </section>

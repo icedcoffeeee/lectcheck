@@ -2,8 +2,6 @@
   import "@fontsource/karla";
   import "@fontsource/ibm-plex-mono";
   import "../app.css";
-  import { goto } from "$app/navigation";
-  import { authc } from "../auth";
 
   let { children, data } = $props();
 </script>
@@ -20,9 +18,9 @@
   <div class="flex gap-5">
     <a href="/about">about</a>
     {#if data.user}
-      <button onclick={() => authc.signOut().then(() => goto("/"))}>log out</button>
+      <a href="logout">log out</a>
     {:else}
-      <a href="/login">log in</a>
+      <a href="login">log in</a>
     {/if}
   </div>
 </nav>

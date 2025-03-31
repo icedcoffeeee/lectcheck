@@ -14,7 +14,10 @@
 <nav
   class="sticky top-0 z-10 flex w-full justify-between p-5 font-mono text-sm font-bold backdrop-blur-md"
 >
-  <a href="/">LectCheck</a>
+  <a href="/" class="flex items-center gap-2">
+    <img src="/icon.svg" alt="icon" class="size-4 [filter:invert(1)] dark:[filter:invert(0)]" />
+    LectCheck</a
+  >
   <div class="flex gap-5">
     <a href="/about">about</a>
     <form>
@@ -34,7 +37,8 @@
 <style lang="postcss">
   @reference "../app.css";
 
-  a {
+  a,
+  button {
     @apply hover:text-primary;
   }
 </style>

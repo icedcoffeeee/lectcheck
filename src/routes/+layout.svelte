@@ -17,11 +17,13 @@
   <a href="/">LectCheck</a>
   <div class="flex gap-5">
     <a href="/about">about</a>
-    {#if data.user}
-      <a href="logout">log out</a>
-    {:else}
-      <a href="login">log in</a>
-    {/if}
+    <form>
+      {#if data.user}
+        <button formaction="/?/logout" formmethod="post">log out</button>
+      {:else}
+        <button formaction="/?/login" formmethod="post">log in</button>
+      {/if}
+    </form>
   </div>
 </nav>
 

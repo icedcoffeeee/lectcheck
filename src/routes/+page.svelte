@@ -13,6 +13,7 @@
     </div>
     <span class="h-10"></span>
     <form
+      action="/?/tag"
       method="post"
       use:enhance={() => {
         loading = true;
@@ -36,7 +37,7 @@
         </button>
       </p>
       <input name="tag" placeholder="e.g. hamdi" class="py-1" />
-      <a class="self-end text-xs underline" href="faq#tag">what's a tag?</a>
+      <a class="self-end text-xs underline" href="about#faq">what's a tag?</a>
     </form>
   </section>
 </div>

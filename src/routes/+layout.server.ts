@@ -1,7 +1,8 @@
+import { auth } from "@/lib/auth";
 import type { LayoutServerLoadEvent } from "./$types";
 
-export async function load({ locals }: LayoutServerLoadEvent) {
-  const session = await locals.auth();
-  if (session) return { user: session.user };
+export async function load({ request: { headers } }: LayoutServerLoadEvent) {
+  const data = await auth.api.getSession({ headers });
+  if (data && data.session) return { user: data.user };
   return {};
 }

@@ -1,9 +1,18 @@
 <script lang="ts">
   import "@fontsource/karla";
   import "@fontsource/ibm-plex-mono";
-  import "../app.css";
+  import "@/app.css";
+
+  import { authC } from "@/auth-client";
+  import { invalidateAll } from "$app/navigation";
 
   let { children, data } = $props();
+  let login = async () => await authC.signIn.social({ provider: "google" });
+  let logout = async () => {
+    let { data, error } = await authC.signOut();
+    if (error) alert(error.message);
+    if (data?.success) await invalidateAll();
+  };
 </script>
 
 <svelte:head>
@@ -20,13 +29,11 @@
   >
   <div class="flex gap-5">
     <a href="/about">about</a>
-    <form>
-      {#if data.user}
-        <button formaction="/?/logout" formmethod="post">log out</button>
-      {:else}
-        <button formaction="/?/login" formmethod="post">log in</button>
-      {/if}
-    </form>
+    {#if !data.user}
+      <button onclick={login}>log in</button>
+    {:else}
+      <button onclick={logout}>log out</button>
+    {/if}
   </div>
 </nav>
 

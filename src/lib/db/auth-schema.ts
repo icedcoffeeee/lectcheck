@@ -1,84 +1,51 @@
-import { boolean, timestamp, pgTable, text, primaryKey, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  name: text("name"),
-  email: text("email").unique(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
 });
-
-export const account = pgTable(
-  "account",
-  {
-    userId: text("userId")
-      .notNull()
-      .references(() => user.id, { onDelete: "cascade" }),
-    type: text("type").notNull(),
-    provider: text("provider").notNull(),
-    providerAccountId: text("providerAccountId").notNull(),
-    refresh_token: text("refresh_token"),
-    access_token: text("access_token"),
-    expires_at: integer("expires_at"),
-    token_type: text("token_type"),
-    scope: text("scope"),
-    id_token: text("id_token"),
-    session_state: text("session_state"),
-  },
-  (account) => [
-    {
-      compoundKey: primaryKey({
-        columns: [account.provider, account.providerAccountId],
-      }),
-    },
-  ],
-);
 
 export const session = pgTable("session", {
-  sessionToken: text("sessionToken").primaryKey(),
-  userId: text("userId")
+  id: text("id").primaryKey(),
+  expiresAt: timestamp("expires_at").notNull(),
+  token: text("token").notNull().unique(),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
-  expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
-export const verificationToken = pgTable(
-  "verificationToken",
-  {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
-  },
-  (verificationToken) => [
-    {
-      compositePk: primaryKey({
-        columns: [verificationToken.identifier, verificationToken.token],
-      }),
-    },
-  ],
-);
+export const account = pgTable("account", {
+  id: text("id").primaryKey(),
+  accountId: text("account_id").notNull(),
+  providerId: text("provider_id").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  accessToken: text("access_token"),
+  refreshToken: text("refresh_token"),
+  idToken: text("id_token"),
+  accessTokenExpiresAt: timestamp("access_token_expires_at"),
+  refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+  scope: text("scope"),
+  password: text("password"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
 
-export const authenticator = pgTable(
-  "authenticator",
-  {
-    credentialID: text("credentialID").notNull().unique(),
-    userId: text("userId")
-      .notNull()
-      .references(() => user.id, { onDelete: "cascade" }),
-    providerAccountId: text("providerAccountId").notNull(),
-    credentialPublicKey: text("credentialPublicKey").notNull(),
-    counter: integer("counter").notNull(),
-    credentialDeviceType: text("credentialDeviceType").notNull(),
-    credentialBackedUp: boolean("credentialBackedUp").notNull(),
-    transports: text("transports"),
-  },
-  (authenticator) => [
-    {
-      compositePK: primaryKey({
-        columns: [authenticator.userId, authenticator.credentialID],
-      }),
-    },
-  ],
-);
+export const verification = pgTable("verification", {
+  id: text("id").primaryKey(),
+  identifier: text("identifier").notNull(),
+  value: text("value").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at"),
+  updatedAt: timestamp("updated_at"),
+});

@@ -479,8 +479,8 @@
 	<p>Email: lectcheck@gmail.com</p>
 </section>
 
-<style>
-	@reference "../../app.css"
+<style lang="postcss">
+	@reference "../../app.css";
 	section {
 		@apply flex flex-col gap-4 pb-3;
 	}

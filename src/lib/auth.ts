@@ -1,27 +1,25 @@
-import { dev } from '$app/environment';
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI } from '$env/static/private';
-import { type User, db, sessions, users } from '$lib/database';
-import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
-import { Google } from 'arctic';
-import { Lucia } from 'lucia';
+import { PUBLIC_BETTER_AUTH_URL } from '$env/static/public';
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 
-const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
+import { betterAuth } from 'better-auth';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { sveltekitCookies } from 'better-auth/svelte-kit';
+import { getRequestEvent } from '$app/server';
 
-export const lucia = new Lucia(adapter, {
-	sessionCookie: {
-		attributes: {
-			secure: !dev
+import { db } from './database';
+
+export const auth = betterAuth({
+	database: drizzleAdapter(db, {
+		provider: 'pg',
+		usePlural: true
+	}),
+	socialProviders: {
+		google: {
+			clientId: GOOGLE_CLIENT_ID,
+			clientSecret: GOOGLE_CLIENT_SECRET,
+			scope: ['profile', 'email'],
+			redirectURI: PUBLIC_BETTER_AUTH_URL + '/api/auth/callback/google'
 		}
 	},
-	getUserAttributes: (user: User) => user
+	plugins: [sveltekitCookies(getRequestEvent)]
 });
-
-export const google = new Google(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI);
-
-declare module 'lucia' {
-	interface Register {
-		Lucia: typeof lucia;
-		UserId: number;
-		DatabaseUserAttributes: User;
-	}
-}

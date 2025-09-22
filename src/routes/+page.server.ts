@@ -29,9 +29,6 @@ export const actions: Actions = {
 		if (lectTag.includes('.')) lectTag = lectTag.replaceAll('.', '-');
 		redirect(303, lectTag.toLowerCase());
 	},
-	gotoLogin: () => {
-		redirect(303, '/login/google');
-	},
 	gotoAccount: () => {
 		redirect(303, '/account');
 	}

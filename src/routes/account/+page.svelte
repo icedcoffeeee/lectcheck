@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import Navbar from '$components/Navbar.svelte';
 	import PostCard from '$components/PostCard.svelte';
 	import PostCardSkeleton from '$components/PostCardSkeleton.svelte';
 	import type { User } from '$lib';
+	import { authC } from '../../authC';
 	import type { PageData } from './$types';
 
 	interface Props {
@@ -38,7 +40,8 @@
 		<div class="h-14 flex gap-2 items-center">
 			<button
 				onclick={() => (postsScreen = true)}
-				class="h-fit px-2 rounded-sm {postsScreen ? pressedTabClass : unpressedTabClass}">Posts</button
+				class="h-fit px-2 rounded-sm {postsScreen ? pressedTabClass : unpressedTabClass}"
+				>Posts</button
 			>
 			<button
 				onclick={() => (postsScreen = false)}
@@ -71,7 +74,7 @@
 	<div class="md:w-1/4">
 		<div class="flex flex-col gap-3 items-center bg-white rounded-sm shadow-md p-2 mt-14 pt-12">
 			<img
-				src={user.imageSrc}
+				src={user.image}
 				alt={user.email}
 				class="w-20 rounded-full border-8 border-white absolute -translate-y-[5.5rem]"
 			/>
@@ -102,16 +105,16 @@
 					<p>Liked</p>
 				</div>
 			</div>
-			<form method="post">
-				<button
-					onclick={() => (signingOut = true)}
-					class="my-2 px-2 py-1 rounded-sm bg-accent text-white"
-					class:opacity-80={signingOut}
-				>
-					Sign Out
-				</button>
-				<!-- disabled={signingOut} -->
-			</form>
+			<button
+				onclick={() => {
+					signingOut = true;
+					authC.signOut().then(() => goto('/', { invalidateAll: true }));
+				}}
+				class="my-2 px-2 py-1 rounded-sm bg-accent text-white"
+				class:opacity-80={signingOut}
+			>
+				Sign Out
+			</button>
 		</div>
 	</div>
 </div>

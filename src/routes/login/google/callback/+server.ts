@@ -1,6 +1,5 @@
 import { google, lucia } from '$lib/auth';
 import { OAuth2RequestError } from 'arctic';
-import { generateIdFromEntropySize } from 'lucia';
 
 import { db, users } from '$lib';
 import type { RequestEvent } from '@sveltejs/kit';
@@ -38,14 +37,15 @@ export async function GET(event: RequestEvent): Promise<Response> {
 				...sessionCookie.attributes
 			});
 		} else {
-			const userId = generateIdFromEntropySize(10); // 16 characters long
+			const user = await db
+				.insert(users)
+				.values({
+					email: googleUser.email,
+					imageSrc: googleUser.picture
+				})
+				.returning();
 
-			await db.insert(users).values({
-				email: googleUser.email,
-				imageSrc: googleUser.picture
-			});
-
-			const session = await lucia.createSession(userId, {});
+			const session = await lucia.createSession(user[0].id, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
 			event.cookies.set(sessionCookie.name, sessionCookie.value, {
 				path: '.',

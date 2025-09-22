@@ -8,9 +8,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 export async function GET(event: RequestEvent): Promise<Response> {
 	const state = generateState();
 	const codeVerifier = generateCodeVerifier();
-	const url = await google.createAuthorizationURL(state, codeVerifier, {
-		scopes: ['profile', 'email']
-	});
+	const url = google.createAuthorizationURL(state, codeVerifier, ['profile', 'email']);
 
 	const cookiesOpts: CookieSerializeOptions & { path: string } = {
 		path: '/',

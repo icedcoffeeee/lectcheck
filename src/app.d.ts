@@ -1,6 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { Session, User } from 'lucia';
+import type { User } from '$lib/database';
+import type { Session } from 'lucia';
 
 // for information about these interfaces
 declare global {

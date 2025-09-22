@@ -31,13 +31,13 @@
 		w = ctx.canvas.width = window.innerWidth;
 		h = ctx.canvas.height = window.innerHeight;
 
-		ctx.filter = `blur(${blur-sm}px)`;
+		ctx.filter = `blur(${blur}px)`;
 		nt = 0;
 
 		window.onresize = function () {
 			w = ctx.canvas.width = window.innerWidth;
 			h = ctx.canvas.height = window.innerHeight;
-			ctx.filter = `blur(${blur-sm}px)`;
+			ctx.filter = `blur(${blur}px)`;
 		};
 		render();
 	}
@@ -86,7 +86,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	canvas {
 		left: calc(var(--left) * 1px);
 	}

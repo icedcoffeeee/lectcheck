@@ -21,7 +21,7 @@
 	{#if moreInfo}
 		<a
 			href="/about"
-			class="px-1 h-6 w-6 flex justify-center items-center text-white bg-primary rounded-sm tooltip tooltip-bottom"
+			class="px-1 h-6 w-6 flex justify-center items-center text-white bg-primary/100 rounded-sm tooltip tooltip-bottom"
 			data-tip="Help"
 		>
 			?

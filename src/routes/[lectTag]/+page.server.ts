@@ -129,7 +129,7 @@ export const actions: Actions = {
 };
 
 const postSchema = z.object({
-	authorId: z.coerce.number(),
+	authorId: z.string(),
 	lectTag: z.string(),
 	classCode: z.string().regex(/[A-Z]{3}\d{4}/, 'Enter a valid course, ensure all caps'),
 	content: z.string().max(200, 'Comment too long'),
@@ -137,6 +137,6 @@ const postSchema = z.object({
 		.array(z.coerce.number().int())
 		.refine((r) => !r.includes(0), 'You forgot to give a rating'),
 	createdAt: z.date().default(new Date()),
-	likeIds: z.number().array().default([]),
-	dislikeIds: z.number().array().default([])
+	likeIds: z.string().array().default([]),
+	dislikeIds: z.string().array().default([])
 });

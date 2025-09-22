@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import type { User } from '$lib';
+	import { authC } from '../authC';
 	import Account from './icons/Account.svelte';
 	import Search from './icons/Search.svelte';
 
@@ -45,19 +47,21 @@
 	</button>
 	{#if user}
 		<button
-			formaction="/?/gotoAccount"
+			onclick={() => goto('/account')}
 			class="px-0.5 flex items-center text-white bg-accent rounded-sm tooltip tooltip-bottom"
 			data-tip="Account"
 		>
 			<label class="swap swap-rotate {accountPressed ? 'swap-active' : ''}">
 				<input type="checkbox" />
-				<img src={user.imageSrc} alt={user.email} class="swap-off object-cover w-6 rounded-full" />
+				<img src={user.image} alt={user.email} class="swap-off object-cover w-6 rounded-full" />
 				<span class="swap-on loading loading-spinner"></span>
 			</label>
 		</button>
 	{:else}
 		<button
-			formaction="/?/gotoLogin"
+			formaction="/"
+      formmethod="GET"
+			onclick={() => authC.signIn.social({ provider: 'google', callbackURL: '/' })}
 			class="px-1 flex items-center text-white bg-accent rounded-sm tooltip tooltip-bottom"
 			data-tip="Log In"
 		>

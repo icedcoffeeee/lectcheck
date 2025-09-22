@@ -1,3 +1,4 @@
+import { users } from './user-schema';
 import { integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const lects = pgTable('lects', {
@@ -11,34 +12,18 @@ export const lects = pgTable('lects', {
 
 export const posts = pgTable('posts', {
 	id: serial('id').primaryKey(),
-	authorId: integer('author_id')
+	authorId: text('author_id')
 		.notNull()
 		.references(() => users.id),
 	lectTag: varchar('lect_tag')
-		.unique()
 		.notNull()
 		.references(() => lects.lectTag),
 	classCode: varchar('class_code').notNull(),
 	ratings: integer('ratings').array().notNull(),
 	content: text('content'),
 	createdAt: timestamp('created_at').defaultNow(),
-	likeIds: integer('like_ids').array().notNull().default([]),
-	dislikeIds: integer('dislike_ids').array().notNull().default([])
+	likeIds: text('like_ids').array().notNull().default([]),
+	dislikeIds: text('dislike_ids').array().notNull().default([])
 });
 
-export const users = pgTable('users', {
-	id: serial('id').primaryKey(),
-	email: text('email').notNull(),
-	imageSrc: text('img_src').notNull()
-});
-
-export const sessions = pgTable('sessions', {
-	id: text('id').primaryKey(),
-	userId: integer('user_id')
-		.notNull()
-		.references(() => users.id),
-	expiresAt: timestamp('expires_at', {
-		withTimezone: true,
-		mode: 'date'
-	}).notNull()
-});
+export { users, sessions, accounts, verifications } from './user-schema';
